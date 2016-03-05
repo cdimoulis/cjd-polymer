@@ -35,7 +35,6 @@ var jsDependenciesToInject = [
 
 
 var jsFilesToInject = [
-
   // Load sails.io before everything else
   'js/dependencies/sails.io.js',
 
