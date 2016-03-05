@@ -12,42 +12,62 @@
  */
 
 
-// CSS files to inject in order
-//
-// (if you're using LESS with the built-in default config, you'll want
-//  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
-  'styles/**/*.css'
+  'vendor/**/*.css',
+  'styles/**/*.css',
+];
+
+var jsDependenciesToInject = [
+  /*
+  * Order required dependencies
+  */
+  'js/dependencies/core/jquery/jquery.min.js',
+  'js/dependencies/core/handlebars/handlebars.js',
+  'js/dependencies/core/underscore/underscore.js',
+  'js/dependencies/core/backbone/backbone.js',
+
+
+
+  // The rest of the dependencies
+  'js/dependencies/**/*.js'
+
 ];
 
 
-// Client-side javascript files to inject in order
-// (uses Grunt-style wildcard/glob/splat expressions)
 var jsFilesToInject = [
-
   // Load sails.io before everything else
-  'js/dependencies/sails.io.js',
+  // 'js/dependencies/sails.io.js',
 
-  // Dependencies like jQuery, or Angular are brought in here
-  'js/dependencies/**/*.js',
 
-  // All of the rest of your client-side js files
-  // will be injected here in no particular order.
-  'js/**/*.js'
+  /*
+  * Order required vendor
+  */
+
+
+
+  // The rest of the vendor files
+  'vendor/**/*.js',
+
+
+
+  /**********
+  * Application specific requirements
+  ***********/
+  'js/libs/**/*.js',
+
+  'js/application/init.js',
+  'js/application/models/*.js',
+  'js/application/collections/*.js',
+
+
+  'js/application/**/*.js'
 ];
 
 
-// Client-side HTML templates are injected using the sources below
-// The ordering of these templates shouldn't matter.
-// (uses Grunt-style wildcard/glob/splat expressions)
-//
-// By default, Sails uses JST templates and precompiles them into
-// functions for you.  If you want to use jade, handlebars, dust, etc.,
-// with the linker, no problem-- you'll just want to make sure the precompiled
-// templates get spit out to the same file.  Be sure and check out `tasks/README.md`
-// for information on customizing and installing new tasks.
+// Thses are importing the handlebars templates that were
+// compiled into javascript
 var templateFilesToInject = [
-  'templates/**/*.html'
+  'templates/**/*.js'
 ];
 
 
@@ -65,11 +85,12 @@ var tmpPath = '.tmp/public/';
 module.exports.cssFilesToInject = cssFilesToInject.map(function(cssPath) {
   return require('path').join('.tmp/public/', cssPath);
 });
+module.exports.jsDependenciesToInject = jsDependenciesToInject.map(function(depPath) {
+  return require('path').join('.tmp/public/', depPath);
+});
 module.exports.jsFilesToInject = jsFilesToInject.map(function(jsPath) {
   return require('path').join('.tmp/public/', jsPath);
 });
 module.exports.templateFilesToInject = templateFilesToInject.map(function(tplPath) {
-  return require('path').join('assets/',tplPath);
+  return require('path').join('.tmp/public/',tplPath);
 });
-
-
