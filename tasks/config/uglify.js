@@ -11,7 +11,7 @@
  */
 module.exports = function(grunt) {
 
-  grunt.config.set('uglify',
+  grunt.config.set('uglify', {
     dist: {
       src: ['.tmp/public/concat/dependencies.js',
             '.tmp/public/concat/templates.js',

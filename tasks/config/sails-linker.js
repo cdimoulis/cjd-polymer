@@ -63,7 +63,7 @@ module.exports = function(grunt) {
         appRoot: '.tmp/public'
       },
       files: {
-        'views/**/*.jade': '' // Testing empty string ['.tmp/public/min/dependencies.min.js']
+        'views/**/*.jade': [] // Testing empty ['.tmp/public/min/dependencies.min.js']
       }
     },
 
@@ -76,7 +76,7 @@ module.exports = function(grunt) {
         relative: true
       },
       files: {
-        'views/**/*.jade': '' // Testing empty string ['.tmp/public/min/dependencies.min.js']
+        'views/**/*.jade': [] // Testing empty ['.tmp/public/min/dependencies.min.js']
       }
     },
 
@@ -203,7 +203,7 @@ module.exports = function(grunt) {
         appRoot: '.tmp/public'
       },
       files: {
-        'views/**/*.jade': '' // Testing out empty string['.tmp/public/min/templates.min.js']
+        'views/**/*.jade': [] // Testing empty ['.tmp/public/min/templates.min.js']
       }
     }
   });

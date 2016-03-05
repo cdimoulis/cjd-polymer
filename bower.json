@@ -6,9 +6,30 @@
     "test",
     "tests"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "jquery": "~2.2.1",
+    "moment": "~2.11.2",
+    "underscore": "~1.8.3",
+    "backbone": "~1.2.3",
+    "material-design-lite": "~1.1.1",
+    "handlebars": "~4.0.5"
+  },
   "name": "cjd-polymer",
   "version": "0.0.0",
   "author": "chrisdimoulis",
-  "private": true
+  "private": true,
+  "exportsOverride": {
+    "jquery": {
+      "../js/dependencies/core": "dist/jquery.min.*"
+    },
+    "underscore": {
+      "../js/dependencies/core": "underscore.js"
+    },
+    "backbone": {
+      "../js/dependencies/core": "backbone.js"
+    },
+    "handlebars": {
+      "../js/dependencies/core": "handlebars.js"
+    }
+  }
 }
