@@ -1,0 +1,43 @@
+<dom-module id="cjd-input">
+
+  <template>
+    <paper-input value={{value}} label='First Name' pattern="-?[A-z,a-z'\-]*" auto-validate error-message='This is wrong' char-counter>
+    </paper-input>
+    <span>
+      {{computeInfo(info)}}
+    </span>
+    <span>
+      [[testArray(arr.*, 0, 'name')]]
+  </template>
+
+  <script>
+    Polymer({
+      is: 'cjd-input',
+      properties: {
+        info: String,
+        obj: Object,
+        value: String,
+        arr:{
+          type: Array,
+          value: [{name: "Chris"},{name: "Naomi"}]
+        }
+      },
+      ready: function() {
+        console.log('created', this.info);
+        console.log('object', this.obj);
+        console.log('value', this.value);
+        console.log('this',this);
+      },
+      attributeChanged: function(name, type) {
+        console.log('attr change',name,type);
+      },
+      computeInfo: function(info) {
+        return "The info: "+info;
+      },
+      testArray: function(changed, index, attr){
+        console.log(changed.base[index][attr]);
+        return changed.base[index][attr];
+      }
+    });
+  </script>
+</dom-module>

@@ -19,26 +19,23 @@ html
     link(rel="import", href="/vendor/paper-input/paper-input.html")
     link(rel="import", href="/vendor/paper-input/paper-textarea.html")
     link(rel="import", href="/vendor/paper-checkbox/paper-checkbox.html")
+    link(rel="import", href="/components/cjd-input.html")
     // TEMPLATES
-    
+    script(type="text/javascript", src="/templates/pages/buttons.js")
+    script(type="text/javascript", src="/templates/pages/home.js")
     // TEMPLATES END
 
     // SCRIPTS
     script(src="/vendor/moment/moment.js")
+    script(src="/js/libs/handlebars_helpers.js")
+    script(src="/js/libs/view.js")
+    script(src="/js/application/application.js")
+    script(src="/js/application/init.js")
+    script(src="/js/application/pages/buttons.js")
+    script(src="/js/application/pages/home.js")
     // SCRIPTS END
   body
-    #page
-    i.material-icons home
+    #main-content(page-name='#{page}')
     
-    .mdl-grid
-      .mdl-cell.mdl-cell--3-col
-        paper-input(label='First Name', pattern="-?[A-z,a-z'\-]*", auto-validate, error-message='This is wrong',char-counter)
-      .mdl-cell.mdl-cell--3-col
-        paper-textarea(label='Description',rows=4, char-counter)
-        
-      .mdl-cell.mdl-cell--3-col
-        .mdl-grid
-          .mdl-cell.mdl-cell--2-col
-            paper-checkbox Male
-          .mdl-cell.mdl-cell--2-col
-            paper-checkbox Female
+    script.
+      App.setPage();

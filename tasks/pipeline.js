@@ -55,6 +55,7 @@ var jsFilesToInject = [
   ***********/
   'js/libs/**/*.js',
 
+  'js/application/application.js',
   'js/application/init.js',
   'js/application/models/*.js',
   'js/application/collections/*.js',
