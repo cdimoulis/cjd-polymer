@@ -2,28 +2,43 @@ doctype html
 html
   head
     link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+    link(rel="stylesheet", href="https://code.getmdl.io/1.1.2/material.blue_grey-orange.min.css")
     // STYLES
-    link(rel="stylesheet", href="/vendor/material-design-lite/material.min.css")
     link(rel="stylesheet", href="/styles/importer.css")
     // STYLES END
-
-  body
-    #page
-    i.material-icons home
 
     // DEPENDENCIES
     script(src="/js/dependencies/core/jquery/jquery.min.js")
     script(src="/js/dependencies/core/handlebars/handlebars.js")
     script(src="/js/dependencies/core/underscore/underscore.js")
     script(src="/js/dependencies/core/backbone/backbone.js")
+    script(src="/js/dependencies/core/webcomponentsjs/webcomponents.js")
     script(src="/js/dependencies/sails.io.js")
     // END DEPENDENCIES
-
+    link(rel="import", href="/vendor/polymer/polymer.html")
+    link(rel="import", href="/vendor/paper-input/paper-input.html")
+    link(rel="import", href="/vendor/paper-input/paper-textarea.html")
+    link(rel="import", href="/vendor/paper-checkbox/paper-checkbox.html")
     // TEMPLATES
     
     // TEMPLATES END
 
     // SCRIPTS
-    script(src="/vendor/material-design-lite/material.min.js")
     script(src="/vendor/moment/moment.js")
     // SCRIPTS END
+  body
+    #page
+    i.material-icons home
+    
+    .mdl-grid
+      .mdl-cell.mdl-cell--3-col
+        paper-input(label='First Name', pattern="-?[A-z,a-z'\-]*", auto-validate, error-message='This is wrong',char-counter)
+      .mdl-cell.mdl-cell--3-col
+        paper-textarea(label='Description',rows=4, char-counter)
+        
+      .mdl-cell.mdl-cell--3-col
+        .mdl-grid
+          .mdl-cell.mdl-cell--2-col
+            paper-checkbox Male
+          .mdl-cell.mdl-cell--2-col
+            paper-checkbox Female
