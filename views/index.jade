@@ -18,6 +18,7 @@ html
     link(rel="import", href="/vendor/polymer/polymer.html")
     link(rel="import", href="/vendor/paper-input/paper-input.html")
     link(rel="import", href="/vendor/paper-input/paper-textarea.html")
+    link(rel="import", href="/vendor/paper-checkbox/paper-checkbox.html")
     // TEMPLATES
     
     // TEMPLATES END
@@ -31,7 +32,13 @@ html
     
     .mdl-grid
       .mdl-cell.mdl-cell--3-col
-        paper-input(label='First Name', char-counter)
+        paper-input(label='First Name', pattern="-?[A-z,a-z'\-]*", auto-validate, error-message='This is wrong',char-counter)
       .mdl-cell.mdl-cell--3-col
         paper-textarea(label='Description',rows=4, char-counter)
         
+      .mdl-cell.mdl-cell--3-col
+        .mdl-grid
+          .mdl-cell.mdl-cell--2-col
+            paper-checkbox Male
+          .mdl-cell.mdl-cell--2-col
+            paper-checkbox Female
