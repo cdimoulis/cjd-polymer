@@ -12,7 +12,8 @@
     "underscore": "~1.8.3",
     "backbone": "~1.2.3",
     "handlebars": "~4.0.5",
-    "polymer": "^1.3.1"
+    "polymer": "Polymer/polymer#^1.3.1",
+    "paper-input": "PolymerElements/paper-input#^1.1.9"
   },
   "name": "cjd-polymer",
   "version": "0.0.0",
@@ -34,8 +35,8 @@
     "webcomponentsjs": {
       "../js/dependencies/core": "webcomponents.js"
     },
-    "polymer": {
-      "../templates/html": "*.html"
+    "paper-styles": {
+      "../vendor": "*.html"
     }
   }
 }
