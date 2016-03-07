@@ -1,0 +1,11 @@
+{{#if display.raised}}
+<paper-button raised>
+{{else}}
+<paper-button>
+{{/if}}
+  {{#if display.icon}}
+  <iron-icon icon="{{display.icon}}">
+  </iron-icon>
+  {{/if}}
+  {{display.text}}
+</paper-button>

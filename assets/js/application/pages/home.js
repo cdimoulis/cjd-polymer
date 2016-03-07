@@ -5,7 +5,6 @@ App.Page.extend({
   ],
 
   setup: function() {
-
     this.components = c = {}
 
     c.text = {
