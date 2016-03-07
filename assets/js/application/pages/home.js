@@ -11,7 +11,7 @@ App.Page.extend({
       heading: 'Text',
       img_url: 'images/text.png',
       content: "Variations of text inputs.",
-      footer: "Button here soon",
+      footer: "views/home/text/footer",
     }
   },
 });

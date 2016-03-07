@@ -33,7 +33,7 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': "MainController.index",
-  '/buttons': "MainController.buttons",
+  '/elements/:type': "MainController.components",
 
   /***************************************************************************
   *                                                                          *

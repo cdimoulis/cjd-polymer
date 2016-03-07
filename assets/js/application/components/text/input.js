@@ -1,30 +1,54 @@
 App.View.extend({
   name: 'components/text/input',
-  events: {
-    'keyup paper-input': '_onChange',
-    'error': '_onChange',
+  tagName: 'paper-input',
+  attributes: {
+
   },
+  events: {
+    'keyup': '_onChange',
+  },
+  data_source: [
+    {key: 'model', required: true},
+    {key: 'attribute', required: true},
+    {key: 'label', required: false},
+    {key: 'pattern', required: false},
+    {key: 'error_message', required: false, default: "Invalid Input"},
+    {key: 'auto_validate', required: false, default: false},
+    {key: 'char_counter', required: false, default: false},
+    {key: 'password', required: false, default: false},
+  ],
   init_functions: [
     'setup',
   ],
 
   setup: function() {
-    _.bindAll(this, '_rendered', '_onChange');
+    _.bindAll(this, '_onChange');
 
-    this.listenTo(this,'rendered',this._rendered);
-  },
+    var attrs = {
+      value: this.data.model.get(this.data.attribute),
+      label: this.data.label,
+      pattern: this.data.pattern,
+      'error-message': this.data.error_message,
+    };
 
-  _rendered: function() {
-    console.log('setup input');
-    console.log('el',this.$el.find("paper-input"))
-    this.$el.find('paper-input').on('error',function(){
-      console.log('paper change',arguments);
-    })
+    if (this.data.auto_validate) {
+      attrs['auto-validate'] = true;
+    }
+
+    if (this.data.char_counter) {
+      attrs['char-counter'] = true;
+    }
+
+    if (this.data.password) {
+      attrs.type = 'password';
+    }
+
+    this.$el.attr(attrs);
   },
 
   _onChange: function(e) {
-    var re = /[A-Z,a-z'\-]/g;
-    var value = e.currentTarget.value;
-    console.log('on change',re.test(value));
+    if (this.el.validate()) {
+      this.data.model.set(this.data.attribute, e.currentTarget.value);
+    }
   },
 });

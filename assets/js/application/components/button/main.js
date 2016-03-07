@@ -44,7 +44,6 @@ App.View.extend({
   },
 
   _onClick: function(e) {
-    console.log('clicked');
     if (_.has(this.data, 'event_handler') && _.isFunction(this.data.event_handler)) {
       this.data.event_handler(e);
     }

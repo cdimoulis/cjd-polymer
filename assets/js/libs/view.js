@@ -111,7 +111,10 @@ Backbone.View = Backbone.View.extend({
     _.each(this.children,function(view){
       _this.removeView(view);
     })
-    this.$el.html(this.template(this));
+    
+    if (!!this.template){
+      this.$el.html(this.template(this));
+    }
 
     // Add the children in their dom place
     _.each(this.children,function(view,key){
