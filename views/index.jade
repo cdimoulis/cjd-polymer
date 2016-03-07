@@ -1,9 +1,10 @@
 doctype html
 html
   head
-    link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+    //- link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
     link(rel="stylesheet", href="https://code.getmdl.io/1.1.2/material.blue_grey-orange.min.css")
     // STYLES
+    link(rel="stylesheet", href="/styles/components/general.css")
     link(rel="stylesheet", href="/styles/importer.css")
     // STYLES END
 
@@ -16,29 +17,35 @@ html
     script(src="/js/dependencies/sails.io.js")
     // END DEPENDENCIES
     link(rel="import", href="/vendor/polymer/polymer.html")
-    link(rel="import", href="/vendor/paper-input/paper-input.html")
-    link(rel="import", href="/vendor/paper-input/paper-textarea.html")
-    link(rel="import", href="/vendor/paper-checkbox/paper-checkbox.html")
-    // TEMPLATES
+    link(rel="import", href="/vendor/paper-card/paper-card.html")
+    link(rel="import", href="/vendor/paper-button/paper-button.html")
+    link(rel="import", href="/vendor/iron-icons/iron-icons.html")
+    link(rel="import", href="/vendor/iron-icon/iron-icon.html")
     
+    // TEMPLATES
+    script(type="text/javascript", src="/templates/components/button/main.js")
+    script(type="text/javascript", src="/templates/components/card/main.js")
+    script(type="text/javascript", src="/templates/components/text/input.js")
+    script(type="text/javascript", src="/templates/pages/buttons.js")
+    script(type="text/javascript", src="/templates/pages/home.js")
     // TEMPLATES END
 
     // SCRIPTS
     script(src="/vendor/moment/moment.js")
+    script(src="/js/libs/collection.js")
+    script(src="/js/libs/handlebars_helpers.js")
+    script(src="/js/libs/model.js")
+    script(src="/js/libs/view.js")
+    script(src="/js/application/application.js")
+    script(src="/js/application/init.js")
+    script(src="/js/application/components/button/main.js")
+    script(src="/js/application/components/card/main.js")
+    script(src="/js/application/components/text/input.js")
+    script(src="/js/application/pages/buttons.js")
+    script(src="/js/application/pages/home.js")
     // SCRIPTS END
   body
-    #page
-    i.material-icons home
+    #main-content(page-name='#{page}')
     
-    .mdl-grid
-      .mdl-cell.mdl-cell--3-col
-        paper-input(label='First Name', pattern="-?[A-z,a-z'\-]*", auto-validate, error-message='This is wrong',char-counter)
-      .mdl-cell.mdl-cell--3-col
-        paper-textarea(label='Description',rows=4, char-counter)
-        
-      .mdl-cell.mdl-cell--3-col
-        .mdl-grid
-          .mdl-cell.mdl-cell--2-col
-            paper-checkbox Male
-          .mdl-cell.mdl-cell--2-col
-            paper-checkbox Female
+    script.
+      App.setPage();
