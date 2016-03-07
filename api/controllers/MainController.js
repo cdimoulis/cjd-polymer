@@ -14,10 +14,11 @@ module.exports = {
     return res.view('index',locals);
   },
 
-  buttons: function(req, res) {
+  components: function(req, res) {
+    var component = req.param('type');
     var locals = {
-      page: 'buttons',
+      page: component,
     };
     return res.view('index', locals);
-  },
+  }
 };
