@@ -10,6 +10,8 @@ App.Page.extend({
     c.one = {
       text: 'Press',
       icon: 'arrow-downward',
+      button_color: 'primary',
+      text_color: 'white',
     }
   },
 });
