@@ -1,0 +1,16 @@
+<paper-card style="width: 100%;" heading="{{display.heading}}" image="{{display.img_url}}">
+  <div class="card-content">
+    {{#if _control.content_view}}
+    {{view display.content data=data.content_data}}
+    {{else}}
+    {{display.content}}
+    {{/if}}
+  </div>
+  <div class="card-actions">
+    {{#if _control.footer_view}}
+    {{view display.footer data=data.footer_data}}
+    {{else}}
+    {{display.footer}}
+    {{/if}}
+  </div>
+</paper-card>
