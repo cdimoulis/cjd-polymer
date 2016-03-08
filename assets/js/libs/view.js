@@ -111,7 +111,7 @@ Backbone.View = Backbone.View.extend({
     _.each(this.children,function(view){
       _this.removeView(view);
     })
-    
+
     if (!!this.template){
       this.$el.html(this.template(this));
     }

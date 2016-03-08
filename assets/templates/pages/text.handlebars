@@ -10,8 +10,34 @@
     <div>Standard input with floating label</div>
     {{view 'components/text/input' data=components.one}}
   </div>
-    <div class='mdl-cell mdl-cell--3-col'>
-      <div>Password input </div>
-      {{view 'components/text/input' data=components.password}}
-    </div>
+  <div class='mdl-cell mdl-cell--3-col'>
+    <div>Password input </div>
+    {{view 'components/text/input' data=components.password}}
+  </div>
+  <div class='mdl-cell mdl-cell--3-col'>
+    <div>Disabled input </div>
+    {{view 'components/text/input' data=components.disabled}}
+  </div>
+  <div class='mdl-cell mdl-cell--3-col'>
+    <div>Always float </div>
+    {{view 'components/text/input' data=components.always_float}}
+  </div>
+</div>
+<div class='mdl-grid'>
+  <div class='mdl-cell mdl-cell--3-col'>
+    <div>Never floating label</div>
+    {{view 'components/text/input' data=components.never_float}}
+  </div>
+  <div class='mdl-cell mdl-cell--3-col'>
+    <div>Character counter</div>
+    {{view 'components/text/input' data=components.char_count}}
+  </div>
+  <div class='mdl-cell mdl-cell--3-col'>
+    <div>Character counter</div>
+    {{view 'components/text/input' data=components.max_count}}
+  </div>
+  <div class='mdl-cell mdl-cell--3-col'>
+    <div>Validate input</div>
+    {{view 'components/text/input' data=components.pattern}}
+  </div>
 </div>
