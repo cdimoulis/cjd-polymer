@@ -2,6 +2,7 @@ App.View.extend({
   name: 'components/text/input',
   events: {
     'keyup paper-input': '_onChange',
+    'click paper-icon-button': '_onClick',
   },
   _standard_patterns: {
     alpha: '[A-Z,a-z]*',
@@ -65,10 +66,6 @@ App.View.extend({
       }
     }
 
-    // if (data.disabled.get('disabled')) {
-    //   this.display.attrs += 'disabled ';
-    // }
-
     if (!data.float_label) {
       this.display.attrs += 'no-float-label ';
     }
@@ -91,9 +88,12 @@ App.View.extend({
 
     // Build the icon button component
     if (!!data.icon_button) {
+      var attrs = new App.Model({suffix: true, class: "text_input_suffix"});
+      attrs.set({disabled: data.attributes.get('disabled')});
       this.components.icon_button = {
         icon: data.icon_button,
         event_handler: data.icon_event_handler,
+        attributes: attrs,
       }
     }
 
@@ -133,6 +133,12 @@ App.View.extend({
     var input = this.$el.find('paper-input')[0];
     if (input.validate()) {
       this.data.model.set(this.data.attribute, e.currentTarget.value);
+    }
+  },
+
+  _onClick: function(e) {
+    if (_.has(this.data, 'icon_event_handler') && _.isFunction(this.data.icon_event_handler)) {
+      this.data.icon_event_handler(this.data.model);
     }
   },
 });

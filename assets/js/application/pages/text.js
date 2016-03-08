@@ -86,5 +86,15 @@ App.Page.extend({
       text_suffix: '@gmail.com',
       icon_suffix: 'communication:email',
     };
+
+    c.clear = {
+      model: model,
+      attribute: 'clear',
+      label: 'Clear with icon button',
+      icon_button: "close",
+      icon_event_handler: function() {
+        model.set('clear','');
+      },
+    };
   },
 });
