@@ -2,6 +2,7 @@ App.Page.extend({
   name: 'pages/text',
   init_functions: [
     'setup',
+    'textareas',
   ],
 
   setup: function() {
@@ -96,5 +97,25 @@ App.Page.extend({
         model.set('clear','');
       },
     };
+  },
+
+  textareas: function() {
+    var c = this.components;
+    var model = new App.Model({info: "Here is a lot of fun info..."});
+    var attrs = new App.Model({rows: 5});
+    window.attrs = attrs;
+
+    c.textarea = {
+      model: model,
+      attribute: 'description',
+      label: 'Description',
+    };
+
+    c.info = {
+      model: model,
+      attribute: 'info',
+      attributes: attrs,
+      label: 'Information',
+    }
   },
 });

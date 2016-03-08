@@ -1,8 +1,7 @@
 App.View.extend({
-  name: 'components/text/input',
+  name: 'components/text/area',
   events: {
-    'keyup paper-input': '_onChange',
-    'click paper-icon-button': '_onClick',
+    'keyup paper-textarea': '_onChange',
   },
   _standard_patterns: {
     alpha: '[A-Z,a-z]*',
@@ -28,12 +27,6 @@ App.View.extend({
     {key: 'auto_validate', required: false, default: false},
     {key: 'char_counter', required: false, default: false},
     {key: 'max_count', required: false},
-    {key: 'password', required: false, default: false},
-    {key: 'icon_prefix', required: false},
-    {key: 'text_suffix', required: false},
-    {key: 'icon_suffix', required: false},
-    {key: 'icon_button', required: false},
-    {key: 'icon_event_handler', required: false},
   ],
   init_functions: [
     'setup',
@@ -41,7 +34,7 @@ App.View.extend({
   ],
 
   setup: function() {
-    _.bindAll(this, '_setValue', '_onChange', '_onClick');
+    _.bindAll(this, '_setValue', '_onChange');
     var data = this.data;
     this.components = {};
     this.display = {};
@@ -102,10 +95,10 @@ App.View.extend({
 
     this.listenTo(data.attributes,'change:disabled',function(model,disabled) {
       if (disabled) {
-        this.$el.find('paper-input').attr('disabled',true);
+        this.$el.find('paper-textarea').attr('disabled',true);
       }
       else {
-        this.$el.find('paper-input').removeAttr('disabled');
+        this.$el.find('paper-textarea').removeAttr('disabled');
       }
     });
   },
@@ -125,20 +118,14 @@ App.View.extend({
   },
 
   _setValue: function(model,value) {
-    var $input = this.$el.find('paper-input');
+    var $input = this.$el.find('paper-textarea');
     $input.val(value);
   },
 
   _onChange: function(e) {
-    var input = this.$el.find('paper-input')[0];
+    var input = this.$el.find('paper-textarea')[0];
     if (input.validate()) {
       this.data.model.set(this.data.attribute, e.currentTarget.value);
-    }
-  },
-
-  _onClick: function(e) {
-    if (_.has(this.data, 'icon_event_handler') && _.isFunction(this.data.icon_event_handler)) {
-      this.data.icon_event_handler(this.data.model);
     }
   },
 });
