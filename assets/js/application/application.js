@@ -1,5 +1,7 @@
 this.Application = function (options) {
 
+  this._dependencies = [];
+
   this.Models = {};
   this.Collections = {};
   this.Views = {};

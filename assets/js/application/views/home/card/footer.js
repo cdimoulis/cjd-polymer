@@ -1,5 +1,8 @@
 App.View.extend({
-  name: 'views/home/text/footer',
+  name: 'views/home/card/footer',
+  data_source: [
+    {key: 'route', required: true},
+  ],
   init_functions: [
     'setup',
   ],
@@ -17,6 +20,6 @@ App.View.extend({
   },
 
   _performNavigation: function() {
-    window.location.pathname = "/elements/text";
+    window.location.pathname = this.data.route;
   },
 });

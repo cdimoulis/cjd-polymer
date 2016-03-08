@@ -4,6 +4,9 @@ App.View.extend({
   events:{
     'click': '_onClick',
   },
+  dependencies: [
+    "paper-icon-button/paper-icon-button.html",
+  ],
   data_source:[
     {key: 'icon', required: true},
     {key: 'ripple', required: false, default: true, options: [true,false]},
@@ -21,9 +24,6 @@ App.View.extend({
     _.bindAll(this, '_handleDisabled', '_onClick');
     this.data.attributes = this.data.attributes || new App.Model()
     var classes = "";
-    var attrs = {
-      icon: this.data.icon,
-    };
 
     // Determine class for background color if not disabled
     if (!this.data.attributes.get('disabled')){
@@ -43,6 +43,18 @@ App.View.extend({
         classes += "text-white";
       }
     }
+
+    // Determine attributes
+    var id = this.data.attributes.get('id');
+    var attrs = {
+      id: id ? id : this.cid+'icon_button',
+      icon: this.data.icon,
+    };
+
+    if (!id) {
+      this.data.attributes.set('id',attrs.id);
+    }
+
     this.$el.attr(attrs);
     this.$el.addClass(classes);
     this.listenTo(this.data.attributes,'change:disabled',this._handleDisabled);

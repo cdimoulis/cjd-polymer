@@ -3,6 +3,9 @@ App.View.extend({
   events:{
     'click paper-button': '_onClick',
   },
+  dependencies: [
+    "paper-button/paper-button.html",
+  ],
   data_source:[
     {key: 'text', required: true},
     {key: 'raised', required: false, default: true, options: [true,false]},
@@ -26,24 +29,35 @@ App.View.extend({
       text: this.data.text,
       raised: this.data.raised,
       icon: this.data.icon,
+      classes: '',
+      attrs: '',
+    }
+
+    // Determine some raised and ripple
+    if (this.data.raised) {
+      this.display.attrs += 'raised ';
+    }
+
+    if (!this.data.ripple) {
+      this.display.attrs += 'noink ';
     }
 
     // Determine class for background color
     if (!this.data.attributes.get('disabled')) {
       switch(this.data.button_color) {
         case 'primary': {
-          this.display.button_color = 'mdl-color--primary';
+          this.display.classes += 'mdl-color--primary ';
           break;
         }
         case 'accent': {
-          this.display.button_color = 'mdl-color--accent';
+          this.display.classes += 'mdl-color--accent ';
           break;
         }
       }
 
       // Determine class for text color
       if (this.data.text_color == 'white') {
-        this.display.text_color = 'text-white';
+        this.display.classes += 'text-white ';
       }
     }
 

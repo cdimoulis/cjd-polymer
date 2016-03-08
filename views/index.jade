@@ -5,6 +5,7 @@ html
     link(rel="stylesheet", href="https://code.getmdl.io/1.1.2/material.blue_grey-orange.min.css")
     // STYLES
     link(rel="stylesheet", href="/styles/components/button/icon.css")
+    link(rel="stylesheet", href="/styles/components/card/main.css")
     link(rel="stylesheet", href="/styles/components/general.css")
     link(rel="stylesheet", href="/styles/importer.css")
     // STYLES END
@@ -18,24 +19,28 @@ html
     script(src="/js/dependencies/sails.io.js")
     // END DEPENDENCIES
     link(rel="import", href="/vendor/polymer/polymer.html")
-    link(rel="import", href="/vendor/paper-card/paper-card.html")
-    link(rel="import", href="/vendor/paper-button/paper-button.html")
-    link(rel="import", href="/vendor/paper-icon-button/paper-icon-button.html")
-    link(rel="import", href="/vendor/paper-input/paper-input.html")
-    link(rel="import", href="/vendor/iron-icons/iron-icons.html")
-    link(rel="import", href="/vendor/iron-icons/editor-icons.html")
-    link(rel="import", href="/vendor/iron-icons/communication-icons.html")
     link(rel="import", href="/vendor/iron-icon/iron-icon.html")
+    link(rel="import", href="/vendor/iron-icons/communication-icons.html")
+    link(rel="import", href="/vendor/iron-icons/device-icons.html")
+    link(rel="import", href="/vendor/iron-icons/editor-icons.html")
+    link(rel="import", href="/vendor/iron-icons/hardware-icons.html")
+    link(rel="import", href="/vendor/iron-icons/image-icons.html")
+    link(rel="import", href="/vendor/iron-icons/iron-icons.html")
+    link(rel="import", href="/vendor/iron-icons/maps-icons.html")
+    link(rel="import", href="/vendor/iron-icons/notification-icons.html")
+    link(rel="import", href="/vendor/iron-icons/places-icons.html")
+    link(rel="import", href="/vendor/iron-icons/social-icons.html")
+    link(rel="import", href="/vendor/paper-badge/paper-badge.html")
     
     // TEMPLATES
     script(type="text/javascript", src="/templates/components/button/main.js")
     script(type="text/javascript", src="/templates/components/card/main.js")
+    script(type="text/javascript", src="/templates/components/text/area.js")
     script(type="text/javascript", src="/templates/components/text/input.js")
     script(type="text/javascript", src="/templates/pages/buttons.js")
     script(type="text/javascript", src="/templates/pages/home.js")
     script(type="text/javascript", src="/templates/pages/text.js")
-    script(type="text/javascript", src="/templates/views/home/buttons/footer.js")
-    script(type="text/javascript", src="/templates/views/home/text/footer.js")
+    script(type="text/javascript", src="/templates/views/home/card/footer.js")
     // TEMPLATES END
 
     // SCRIPTS
@@ -49,12 +54,12 @@ html
     script(src="/js/application/components/button/icon.js")
     script(src="/js/application/components/button/main.js")
     script(src="/js/application/components/card/main.js")
+    script(src="/js/application/components/text/area.js")
     script(src="/js/application/components/text/input.js")
     script(src="/js/application/pages/buttons.js")
     script(src="/js/application/pages/home.js")
     script(src="/js/application/pages/text.js")
-    script(src="/js/application/views/home/buttons/footer.js")
-    script(src="/js/application/views/home/text/footer.js")
+    script(src="/js/application/views/home/card/footer.js")
     // SCRIPTS END
   body
     #main-content(page-name='#{page}')

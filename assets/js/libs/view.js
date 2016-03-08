@@ -1,8 +1,8 @@
 Backbone.View = Backbone.View.extend({
 
   initialize: function(options){
-    _.bindAll(this,'_processData','_processInitFunctions','_processAttributes',
-              '_addChildView','render','appendTo');
+    _.bindAll(this, '_processDependencies', '_processData', '_processInitFunctions',
+              '_processAttributes', '_addChildView', 'render', 'appendTo');
 
     var _this = this;
     options = options || {}
@@ -12,9 +12,16 @@ Backbone.View = Backbone.View.extend({
     this.children = {};
     this.parent = options.parent;
 
+    this._processDependencies();
     this._processData(options.hash || {});
     this._processInitFunctions();
     this._processAttributes();
+  },
+
+  _processDependencies: function() {
+    _.each(this.dependencies, function(dependency) {
+      Polymer.Base.importHref('/vendor/'+dependency);
+    });
   },
 
   _processData: function(hash) {
