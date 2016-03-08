@@ -4,6 +4,9 @@ App.View.extend({
   events:{
     'click': '_onClick',
   },
+  dependencies: [
+    "paper-icon-button/paper-icon-button.html",
+  ],
   data_source:[
     {key: 'icon', required: true},
     {key: 'ripple', required: false, default: true, options: [true,false]},

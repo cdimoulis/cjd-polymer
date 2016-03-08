@@ -3,6 +3,9 @@ App.View.extend({
   events:{
     'click paper-button': '_onClick',
   },
+  dependencies: [
+    "paper-button/paper-button.html",
+  ],
   data_source:[
     {key: 'text', required: true},
     {key: 'raised', required: false, default: true, options: [true,false]},

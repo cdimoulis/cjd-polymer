@@ -1,5 +1,8 @@
 App.View.extend({
   name: 'components/card/main',
+  dependencies: [
+    "paper-card/paper-card.html",
+  ],
   data_source:[
     {key: 'heading', required: false},
     {key: 'img_url', required: false},

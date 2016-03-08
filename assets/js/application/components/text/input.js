@@ -4,6 +4,10 @@ App.View.extend({
     'keyup paper-input': '_onChange',
     'click paper-icon-button': '_onClick',
   },
+  dependencies: [
+    "paper-input/paper-input.html",
+    "paper-icon-button/paper-icon-button.html",
+  ],
   _standard_patterns: {
     alpha: '[A-Z,a-z]*',
     capital_alpha: '[A-Z]*',

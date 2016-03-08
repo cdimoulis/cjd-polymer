@@ -3,6 +3,9 @@ App.View.extend({
   events: {
     'keyup paper-textarea': '_onChange',
   },
+  dependencies: [
+    "paper-input/paper-textarea.html",
+  ],
   _standard_patterns: {
     alpha: '[A-Z,a-z]*',
     capital_alpha: '[A-Z]*',
