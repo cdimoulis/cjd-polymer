@@ -11,6 +11,8 @@ App.View.extend({
     {key: 'model', required: true},
     {key: 'attribute', required: true},
     {key: 'label', required: false},
+    {key: 'float_label', required: false, default: true},
+    {key: 'always_float_label', require: false, default: false},
     {key: 'pattern', required: false},
     {key: 'error_message', required: false, default: "Invalid Input"},
     {key: 'auto_validate', required: false, default: false},
@@ -19,6 +21,7 @@ App.View.extend({
   ],
   init_functions: [
     'setup',
+    'setupAttributes',
   ],
 
   setup: function() {
@@ -30,6 +33,14 @@ App.View.extend({
       pattern: this.data.pattern,
       'error-message': this.data.error_message,
     };
+
+    if (!this.data.float_label) {
+      attrs['no-label-float'] = true;
+    }
+
+    if (this.data.float_label && this.data.always_float_label) {
+      attrs['always-float-label'] = true;
+    }
 
     if (this.data.auto_validate) {
       attrs['auto-validate'] = true;
