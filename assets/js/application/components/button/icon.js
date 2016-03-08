@@ -1,15 +1,14 @@
 App.View.extend({
-  name: 'components/button/main',
+  name: 'components/button/icon',
+  tagName: 'paper-icon-button',
   events:{
-    'click paper-button': '_onClick',
+    'click': '_onClick',
   },
   data_source:[
-    {key: 'text', required: true},
-    {key: 'raised', required: false, default: true, options: [true,false]},
+    {key: 'icon', required: true},
     {key: 'ripple', required: false, default: true, options: [true,false]},
     {key: 'button_color', required: false, default: false, options: ['primary','accent']},
-    {key: 'text_color', required: false, default: 'black', options: ['black', 'white']},
-    {key: 'icon', required: false},
+    {key: 'icon_color', required: false, default: 'black', options: ['black', 'white']},
     {key: 'event_handler', required: false},
     {key: 'attributes', required: false},
   ],
@@ -21,51 +20,52 @@ App.View.extend({
   setup: function() {
     _.bindAll(this, '_handleDisabled', '_onClick');
     this.data.attributes = this.data.attributes || new App.Model()
-
-    this.display = {
-      text: this.data.text,
-      raised: this.data.raised,
+    var classes = "";
+    var attrs = {
       icon: this.data.icon,
-    }
+    };
 
-    // Determine class for background color
-    if (!this.data.attributes.get('disabled')) {
+    // Determine class for background color if not disabled
+    if (!this.data.attributes.get('disabled')){
       switch(this.data.button_color) {
         case 'primary': {
-          this.display.button_color = 'mdl-color--primary';
+          classes += "mdl-color--primary ";
           break;
         }
         case 'accent': {
-          this.display.button_color = 'mdl-color--accent';
+          classes += "mdl-color--accent";
           break;
         }
       }
 
       // Determine class for text color
-      if (this.data.text_color == 'white') {
-        this.display.text_color = 'text-white';
+      if (this.data.icon_color == 'white') {
+        classes += "text-white";
       }
     }
-
-    this.listenTo(this.data.attributes, 'change:disabled', this._handleDisabled);
+    this.$el.attr(attrs);
+    this.$el.addClass(classes);
+    this.listenTo(this.data.attributes,'change:disabled',this._handleDisabled);
   },
 
   setupAttributesModel: function() {
     var extra_attrs = "";
+    var attrs = {};
 
     _.each(this.data.attributes.attributes, function(val, key) {
       if (!val || key == 'class'){
         return;
       }
+      attrs[key] = val;
       extra_attrs += key+'="'+val+'" ';
     });
 
-    this.display.extra_attrs = extra_attrs;
-    this.display.extra_classes = this.data.attributes.get('class') || '';
+    this.$el.attr(attrs);
+    this.$el.addClass(this.data.attributes.get('class'));
   },
 
   _handleDisabled: function(model,disabled) {
-    var $button = this.$el.find('paper-button');
+    var $button = this.$el.find('paper-icon-button');
     if (disabled) {
       $button.attr('disabled',true);
       $button.removeClass('mdl-color--primary');

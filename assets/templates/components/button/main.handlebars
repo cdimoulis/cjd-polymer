@@ -1,7 +1,7 @@
 {{#if display.raised}}
-<paper-button raised class="{{display.button_color}} {{display.text_color}}">
+<paper-button raised class="{{display.button_color}} {{display.text_color}} {{display.extra_classes}}" {{{display.extra_attrs}}}>
 {{else}}
-<paper-button>
+<paper-button class="{{display.extra_classes}}" {{{display.extra_attrs}}}>
 {{/if}}
   {{#if display.icon}}
   <iron-icon icon="{{display.icon}}">
