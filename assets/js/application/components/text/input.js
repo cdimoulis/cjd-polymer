@@ -1,8 +1,7 @@
 App.View.extend({
   name: 'components/text/input',
-  tagName: 'paper-input',
   events: {
-    'keyup': '_onChange',
+    'keyup paper-input': '_onChange',
   },
   _standard_patterns: {
     alpha: '[A-Z,a-z]*',
@@ -20,7 +19,7 @@ App.View.extend({
     {key: 'model', required: true},
     {key: 'attribute', required: true},
     {key: 'disabled', required: false},
-    {key: 'label', required: false},
+    {key: 'label', required: false, default: ''},
     {key: 'float_label', required: false, default: true},
     {key: 'always_float_label', require: false, default: false},
     {key: 'pattern', required: false},
@@ -29,68 +28,85 @@ App.View.extend({
     {key: 'char_counter', required: false, default: false},
     {key: 'max_count', required: false},
     {key: 'password', required: false, default: false},
+    {key: 'icon_prefix', required: false},
+    {key: 'text_suffix', required: false},
+    {key: 'icon_suffix', required: false},
+    {key: 'clear_button', required: false, default: false},
   ],
   init_functions: [
     'setup',
   ],
 
   setup: function() {
-    _.bindAll(this, '_onChange');
+    _.bindAll(this, '_setValue', '_onChange');
     var data = this.data;
+    this.display = {};
+    this.display.attrs = "";
     data.disabled = data.disabled || new App.Model({disabled: false})
 
-    var attrs = {
-      value: data.model.get(data.attribute),
-      label: data.label,
-      'error-message': data.error_message,
-      maxlength: data.max_count,
-    };
+    // Setup the attributes of the paper input element
+    this.display.attrs += 'value="'+(data.model.get(data.attribute) || '')+'" ';
+    this.display.attrs += 'label="'+data.label+'" ';
+    this.display.attrs += 'error-message="'+data.error_message+'" ';
 
-    if (!!data.pattern && !!this._standard_patterns[data.pattern]) {
-      attrs.pattern = this._standard_patterns[data.pattern];
+    if (!!data.max_count){
+      this.display.attrs += 'maxlength='+data.max_count+' ';
     }
-    else {
-      attrs.pattern = data.pattern;
+
+    if (!!data.pattern){
+      if (!!data.pattern && !!this._standard_patterns[data.pattern]) {
+        this.display.attrs += 'pattern="'+this._standard_patterns[data.pattern]+'" ';
+      }
+      else {
+        this.display.attrs += 'pattern="'+(data.pattern || '')+'" ';
+      }
     }
 
     if (data.disabled.get('disabled')) {
-      attrs['disabled'] = true;
+      this.display.attrs += 'disabled ';
     }
 
     this.listenTo(data.disabled,'change:disabled',function(model,disabled) {
       if (disabled) {
-        this.$el.attr('disabled',true);
+        this.$el.find('paper-input').attr('disabled',true);
       }
       else {
-        this.$el.removeAttr('disabled');
+        this.$el.find('paper-input').removeAttr('disabled');
       }
     });
 
     if (!data.float_label) {
-      attrs['no-label-float'] = true;
+      this.display.attrs += 'no-float-label ';
     }
 
     if (data.float_label && data.always_float_label) {
-      attrs['always-float-label'] = true;
+      this.display.attrs += 'always-float-label ';
     }
 
     if (data.auto_validate) {
-      attrs['auto-validate'] = true;
+      this.display.attrs += 'auto-validate ';
     }
 
     if (data.char_counter) {
-      attrs['char-counter'] = true;
+      this.display.attrs += 'char-counter ';
     }
 
     if (data.password) {
-      attrs.type = 'password';
+      this.display.attrs += 'type="password" ';
     }
 
-    this.$el.attr(attrs);
+    // Listen to changes to the model
+    this.listenTo(this.data.model, 'change:'+this.data.attribute, this._setValue);
+  },
+
+  _setValue: function(model,value) {
+    var $input = this.$el.find('paper-input');
+    $input.val(value);
   },
 
   _onChange: function(e) {
-    if (this.el.validate()) {
+    var input = this.$el.find('paper-input')[0];
+    if (input.validate()) {
       this.data.model.set(this.data.attribute, e.currentTarget.value);
     }
   },

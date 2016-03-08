@@ -56,6 +56,20 @@
         "paper-material.html",
         "paper-material-shared-styles.html"
       ]
+    },
+    "iron-icons": {
+      "../vendor": [
+        "communication-icons.html",
+        "device-icons.html",
+        "editor-icons.html",
+        "hardware-icons.html",
+        "image-icons.html",
+        "iron-icons.html",
+        "maps-icons.html",
+        "notification-icons.html",
+        "places-icons.html",
+        "social-icons.html"
+      ]
     }
   }
 }

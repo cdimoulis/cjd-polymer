@@ -8,7 +8,6 @@ App.Page.extend({
     this.components = c = {}
     var model = new App.Model({name: "Chachie"});
     var attrs = new App.Model({disabled: true});
-    window.attrs = attrs;
 
     c.one = {
       model: model,
@@ -25,7 +24,7 @@ App.Page.extend({
 
     c.disabled = {
       model: model,
-      attribute: 'whocares',
+      attribute: 'disabled',
       disabled: attrs,
       label: 'This is disabled',
     };
@@ -46,14 +45,14 @@ App.Page.extend({
 
     c.char_count = {
       model: model,
-      attribute: 'whocares',
+      attribute: 'characters',
       char_counter: true,
       label: 'Count all characters',
     };
 
     c.max_count = {
       model: model,
-      attribute: 'whocares',
+      attribute: 'max',
       char_counter: true,
       max_count: 20,
       label: 'Count all characters',
@@ -61,11 +60,29 @@ App.Page.extend({
 
     c.pattern = {
       model: model,
-      attribute: 'whocares',
+      attribute: 'pattern',
       pattern: 'numeric',
       auto_validate: true,
       error_message: 'Only numbers allowed!!!',
       label: 'Only numbers',
-    }
+    };
+
+    c.icon = {
+      model: model,
+      attribute: 'dollars',
+      pattern: 'numeric',
+      auto_validate: true,
+      error_message: 'Cash has no letters!',
+      label: 'Money',
+      icon_prefix: 'editor:attach-money',
+    };
+
+    c.email = {
+      model: model,
+      attribute: 'email',
+      label: 'Email',
+      text_suffix: '@gmail.com',
+      icon_suffix: 'communication:email',
+    };
   },
 });
