@@ -1,15 +1,13 @@
 App.View.extend({
-  name: 'components/button/main',
+  name: 'components/button/icon',
   events:{
-    'click paper-button': '_onClick',
+    'click paper-icon-button': '_onClick',
   },
   data_source:[
-    {key: 'text', required: true},
-    {key: 'raised', required: false, default: true, options: [true,false]},
+    {key: 'icon', required: true},
     {key: 'ripple', required: false, default: true, options: [true,false]},
     {key: 'button_color', required: false, default: false, options: ['primary','accent']},
-    {key: 'text_color', required: false, default: 'black', options: ['black', 'white']},
-    {key: 'icon', required: false},
+    {key: 'icon_color', required: false, default: 'black', options: ['black', 'white']},
     {key: 'event_handler', required: false},
     {key: 'disabled', required: false},
   ],
@@ -22,13 +20,13 @@ App.View.extend({
     this.data.disabled = this.data.disabled || new App.Model({disabled: false})
 
     this.display = {
-      text: this.data.text,
-      raised: this.data.raised,
       icon: this.data.icon,
+      button_color: "",
+      icon_color: "",
       disabled: (this.data.disabled.get('disabled') ? 'disabled' : ''),
     }
 
-    // Determin class for background color
+    // Determine class for background color
     switch(this.data.button_color) {
       case 'primary': {
         this.display.button_color = 'mdl-color--primary';
@@ -40,16 +38,16 @@ App.View.extend({
       }
     }
 
-    // Determin class for text color
-    if (this.data.text_color == 'white') {
-      this.display.text_color = 'text-white';
+    // Determine class for text color
+    if (this.data.icon_color == 'white') {
+      this.display.icon_color = 'text-white';
     }
 
-    this.listenTo(this.data.disabled, 'change:disabled', this._handleDisabled);
+    this.listenTo(this.data.disabled,'change:disabled',this._handleDisabled);
   },
 
   _handleDisabled: function(model,disabled) {
-    var $button = this.$el.find('paper-button');
+    var $button = this.$el.find('paper-icon-button');
     if (disabled) {
       $button.attr('disabled',true);
       $button.removeClass('mdl-color--primary');
