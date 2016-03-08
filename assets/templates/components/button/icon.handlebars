@@ -1,6 +1,6 @@
 {{#if data.ripple}}
-<paper-icon-button icon="{{display.icon}}" class="{{display.button_color}} {{display.icon_color}}" {{display.disabled}}>
+<paper-icon-button icon="{{display.icon}}" class="{{display.button_color}} {{display.icon_color}} {{display.extra_classes}}" {{display.disabled}} {{{display.extra_attrs}}}>
 {{else}}
-<paper-icon-button icon="{{display.icon}}" noink class="{{display.button_color}} {{display.icon_color}}" {{display.disabled}}>
+<paper-icon-button icon="{{display.icon}}" noink class="{{display.button_color}} {{display.icon_color}} {{display.extra_classes}}" {{display.disabled}} {{{display.extra_attrs}}}>
 {{/if}}
 </paper-icon-button>

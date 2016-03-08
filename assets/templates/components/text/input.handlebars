@@ -12,4 +12,7 @@
   <iron-icon icon="{{data.icon_suffix}}" suffix>
   </iron-icon>
   {{/if}}
+  {{#if data.icon_button}}
+  {{view 'components/input/icon' data=components.icon_button}}
+  {{/if}}
 </paper-input>

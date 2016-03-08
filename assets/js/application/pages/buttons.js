@@ -6,7 +6,7 @@ App.Page.extend({
 
   setup: function() {
     this.components = c = {}
-    var disabled = new App.Model({disabled: false});
+    var disabled = new App.Model({class:'monkey_cheese', monkey: "cheese"});
     window.attrs = disabled;
 
     c.one = {
@@ -14,7 +14,7 @@ App.Page.extend({
       icon: 'arrow-downward',
       button_color: 'primary',
       text_color: 'white',
-      disabled: disabled,
+      attributes: disabled,
     };
 
     c.icon = {
@@ -23,7 +23,7 @@ App.Page.extend({
       event_handler: function() {
         console.log('flight takeoff');
       },
-      disabled: disabled,
+      attributes: disabled,
     };
   },
 });

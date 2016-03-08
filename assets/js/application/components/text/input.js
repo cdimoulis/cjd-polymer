@@ -31,7 +31,8 @@ App.View.extend({
     {key: 'icon_prefix', required: false},
     {key: 'text_suffix', required: false},
     {key: 'icon_suffix', required: false},
-    {key: 'clear_button', required: false, default: false},
+    {key: 'icon_button', required: false},
+    {key: 'icon_event_handler', required: false},
   ],
   init_functions: [
     'setup',
@@ -40,6 +41,7 @@ App.View.extend({
   setup: function() {
     _.bindAll(this, '_setValue', '_onChange');
     var data = this.data;
+    this.components = {};
     this.display = {};
     this.display.attrs = "";
     data.disabled = data.disabled || new App.Model({disabled: false})
@@ -93,6 +95,14 @@ App.View.extend({
 
     if (data.password) {
       this.display.attrs += 'type="password" ';
+    }
+
+    // Build the icon button component
+    if (!!data.icon_button) {
+      this.components.icon_button = {
+        icon: data.icon_button,
+        event_handler: data.icon_event_handler,
+      }
     }
 
     // Listen to changes to the model

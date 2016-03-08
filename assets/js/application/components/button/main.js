@@ -11,41 +11,57 @@ App.View.extend({
     {key: 'text_color', required: false, default: 'black', options: ['black', 'white']},
     {key: 'icon', required: false},
     {key: 'event_handler', required: false},
-    {key: 'disabled', required: false},
+    {key: 'attributes', required: false},
   ],
   init_functions:[
     'setup',
+    'setupAttributesModel',
   ],
 
   setup: function() {
     _.bindAll(this, '_handleDisabled', '_onClick');
-    this.data.disabled = this.data.disabled || new App.Model({disabled: false})
+    this.data.attributes = this.data.attributes || new App.Model()
 
     this.display = {
       text: this.data.text,
       raised: this.data.raised,
       icon: this.data.icon,
-      disabled: (this.data.disabled.get('disabled') ? 'disabled' : ''),
     }
 
-    // Determin class for background color
-    switch(this.data.button_color) {
-      case 'primary': {
-        this.display.button_color = 'mdl-color--primary';
-        break;
+    // Determine class for background color
+    if (!this.data.attributes.get('disabled')) {
+      switch(this.data.button_color) {
+        case 'primary': {
+          this.display.button_color = 'mdl-color--primary';
+          break;
+        }
+        case 'accent': {
+          this.display.button_color = 'mdl-color--accent';
+          break;
+        }
       }
-      case 'accent': {
-        this.display.button_color = 'mdl-color--accent';
-        break;
+
+      // Determine class for text color
+      if (this.data.text_color == 'white') {
+        this.display.text_color = 'text-white';
       }
     }
 
-    // Determin class for text color
-    if (this.data.text_color == 'white') {
-      this.display.text_color = 'text-white';
-    }
+    this.listenTo(this.data.attributes, 'change:disabled', this._handleDisabled);
+  },
 
-    this.listenTo(this.data.disabled, 'change:disabled', this._handleDisabled);
+  setupAttributesModel: function() {
+    var extra_attrs = "";
+
+    _.each(this.data.attributes.attributes, function(val, key) {
+      if (!val || key == 'class'){
+        return;
+      }
+      extra_attrs += key+'="'+val+'" ';
+    });
+
+    this.display.extra_attrs = extra_attrs;
+    this.display.extra_classes = this.data.attributes.get('class') || '';
   },
 
   _handleDisabled: function(model,disabled) {
