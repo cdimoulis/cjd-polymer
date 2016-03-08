@@ -1,4 +1,4 @@
-<paper-card style="width: 100%;" heading="{{display.heading}}" image="{{display.img_url}}">
+<paper-card style="width: 100%;" heading="{{display.heading}}" image="{{display.img_url}}" class="{{display.classes}} {{display.extra_classes}}" {{{display.extra_attrs}}}>
   <div class="card-content">
     {{#if _control.content_view}}
     {{view display.content data=data.content_data}}

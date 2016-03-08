@@ -10,8 +10,24 @@ App.Page.extend({
     c.text = {
       heading: 'Text',
       img_url: 'images/text.png',
+      attributes: new App.Model({class:'home-card'}),
       content: "Variations of text inputs.",
-      footer: "views/home/text/footer",
-    }
+      footer: "views/home/card/footer",
+      footer_data: {
+        route: '/elements/text',
+      },
+    };
+
+    c.buttons = {
+      heading: 'Buttons',
+      heading_color: 'white',
+      img_url: 'images/push_button.jpg',
+      attributes: new App.Model({class:'home-card'}),
+      content: "Variations of polymer buttons.",
+      footer: "views/home/card/footer",
+      footer_data: {
+        route: '/elements/buttons',
+      },
+    };
   },
 });

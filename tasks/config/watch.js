@@ -28,6 +28,10 @@ module.exports = function(grunt) {
     templates: {
       files: ['assets/templates/**/*'],
       tasks: ['handlebars']
+    },
+    scss: {
+      files: ['assets/styles/**/*.scss'],
+      tasks: ['sass']
     }
   });
 

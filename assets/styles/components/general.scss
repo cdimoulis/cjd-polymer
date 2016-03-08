@@ -1,3 +1,9 @@
 .text-white {
   color: white;
 }
+
+paper-card.home-card {
+  div.header.paper-card {
+    height: 200px;
+  }
+}
