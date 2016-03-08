@@ -7,7 +7,9 @@ App.Page.extend({
   setup: function() {
     this.components = c = {}
     var model = new App.Model({name: "Chachie"});
-    var attrs = new App.Model({disabled: true});
+    var attrs = new App.Model({disabled: true, class: 'monkey cheese', monkey: 'cheese'});
+    window.model = model;
+    window.attrs = attrs;
 
     c.one = {
       model: model,
@@ -25,7 +27,7 @@ App.Page.extend({
     c.disabled = {
       model: model,
       attribute: 'disabled',
-      disabled: attrs,
+      attributes: attrs,
       label: 'This is disabled',
     };
 

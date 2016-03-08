@@ -18,7 +18,7 @@ App.View.extend({
   data_source: [
     {key: 'model', required: true},
     {key: 'attribute', required: true},
-    {key: 'disabled', required: false},
+    {key: 'attributes', required: false},
     {key: 'label', required: false, default: ''},
     {key: 'float_label', required: false, default: true},
     {key: 'always_float_label', require: false, default: false},
@@ -36,6 +36,7 @@ App.View.extend({
   ],
   init_functions: [
     'setup',
+    'setupAttributesModel',
   ],
 
   setup: function() {
@@ -44,7 +45,7 @@ App.View.extend({
     this.components = {};
     this.display = {};
     this.display.attrs = "";
-    data.disabled = data.disabled || new App.Model({disabled: false})
+    data.attributes = data.attributes || new App.Model()
 
     // Setup the attributes of the paper input element
     this.display.attrs += 'value="'+(data.model.get(data.attribute) || '')+'" ';
@@ -64,18 +65,9 @@ App.View.extend({
       }
     }
 
-    if (data.disabled.get('disabled')) {
-      this.display.attrs += 'disabled ';
-    }
-
-    this.listenTo(data.disabled,'change:disabled',function(model,disabled) {
-      if (disabled) {
-        this.$el.find('paper-input').attr('disabled',true);
-      }
-      else {
-        this.$el.find('paper-input').removeAttr('disabled');
-      }
-    });
+    // if (data.disabled.get('disabled')) {
+    //   this.display.attrs += 'disabled ';
+    // }
 
     if (!data.float_label) {
       this.display.attrs += 'no-float-label ';
@@ -105,8 +97,31 @@ App.View.extend({
       }
     }
 
-    // Listen to changes to the model
+    // Listen to changes to models
     this.listenTo(this.data.model, 'change:'+this.data.attribute, this._setValue);
+
+    this.listenTo(data.attributes,'change:disabled',function(model,disabled) {
+      if (disabled) {
+        this.$el.find('paper-input').attr('disabled',true);
+      }
+      else {
+        this.$el.find('paper-input').removeAttr('disabled');
+      }
+    });
+  },
+
+  setupAttributesModel: function() {
+    var extra_attrs = "";
+
+    _.each(this.data.attributes.attributes, function(val, key) {
+      if (!val || key == 'class'){
+        return;
+      }
+      extra_attrs += key+'="'+val+'" ';
+    });
+
+    this.display.extra_attrs = extra_attrs;
+    this.display.extra_classes = this.data.attributes.get('class') || '';
   },
 
   _setValue: function(model,value) {
