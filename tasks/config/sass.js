@@ -13,6 +13,7 @@ module.exports = function(grunt) {
       options: {
         trace: true,
         bundleExec: true,
+        style: 'expanded',
       },
       files: [{
         expand: true,
