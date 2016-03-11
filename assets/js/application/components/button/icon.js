@@ -77,27 +77,26 @@ App.View.extend({
   },
 
   _handleDisabled: function(model,disabled) {
-    var $button = this.$el.find('paper-icon-button');
     if (disabled) {
-      $button.attr('disabled',true);
-      $button.removeClass('mdl-color--primary');
-      $button.removeClass('mdl-color--accent');
-      $button.removeClass('text-white');
+      this.$el.attr('disabled',true);
+      this.$el.removeClass('mdl-color--primary');
+      this.$el.removeClass('mdl-color--accent');
+      this.$el.removeClass('text-white');
     }
     else {
-      $button.removeAttr('disabled');
+      this.$el.removeAttr('disabled');
       switch(this.data.button_color) {
         case 'primary': {
-          $button.addClass('mdl-color--primary');
+          this.$el.addClass('mdl-color--primary');
           break;
         }
         case 'accent': {
-          $button.addClass('mdl-color--accent');
+          this.$el.addClass('mdl-color--accent');
           break;
         }
       }
-      if (this.data.text_color == 'white') {
-        $button.addClass('text-white');
+      if (this.data.icon_colors == 'white') {
+        this.$el.addClass('text-white');
       }
     }
   },
