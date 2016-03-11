@@ -1,0 +1,74 @@
+App.View.extend({
+  name: 'components/toggles/checkbox',
+  tagName: 'paper-checkbox',
+  events: {
+    'mouseup': '_onClick',
+  },
+  dependencies: [
+    "paper-checkbox/paper-checkbox.html",
+  ],
+  data_source: [
+    {key: 'model', required: true},
+    {key: 'attribute', required: true},
+    {key: 'attributes', required: false},
+    {key: 'label', required: false, default: ''},
+  ],
+  init_functions: [
+    'setup',
+    'setupAttributesModel',
+  ],
+
+  setup: function() {
+    _.bindAll(this, 'handleModelChange', '_handleDisabled', '_onClick');
+    this.data.attributes = this.data.attributes || new App.Model()
+
+    this.display = {
+      label: this.data.label,
+    };
+
+    if (this.data.model.get(this.data.attribute)) {
+      this.$el.attr('checked',true);
+    }
+
+    // Listen for model and attr change
+    this.listenTo(model, 'change:'+this.data.attribute, this.handleModelChange);
+    this.listenTo(this.data.attributes,'change:disabled',this._handleDisabled);
+  },
+
+  setupAttributesModel: function() {
+    var attrs = {};
+
+    _.each(this.data.attributes.attributes, function(val, key) {
+      if (!val || key == 'class'){
+        return;
+      }
+      attrs[key] = val;
+    });
+
+    this.$el.attr(attrs);
+    this.$el.addClass(this.data.attributes.get('class'));
+  },
+
+  handleModelChange: function (model, value, options) {
+    if (!options[this.cid+'_silent']) {
+      if (this.data.model.get(this.data.attribute)) {
+        this.$el.attr('checked', true);
+      }
+      else {
+        this.$el.attr('checked', false);
+      }
+    }
+  },
+
+  _handleDisabled: function(model, disable) {
+    this.$el.attr('disabled', disable);
+  },
+
+  _onClick: function() {
+    obj = {};
+    obj[this.data.attribute] = !this.el.checked;
+    options = {};
+    options[this.cid+"_silent"] = true;
+    this.data.model.set(obj, options);
+  },
+});
