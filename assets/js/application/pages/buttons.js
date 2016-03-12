@@ -51,6 +51,7 @@ App.Page.extend({
       attributes: disabled,
     };
 
+    // ICON BUTTONS
     c.icon = {
       icon: 'close',
     };
@@ -73,5 +74,30 @@ App.Page.extend({
       icon: "alarm-on",
       attributes: disabled,
     };
+
+    // FAB BUTTONS
+    c.fab = {
+      icon: 'help',
+    };
+
+    c.fab_primary = {
+      icon: 'communication:phone',
+      button_color: 'primary',
+      event_handler: function() {
+        console.log('Answer phone');
+      },
+    };
+
+    c.fab_accent = {
+      icon: 'communication:phone',
+      button_color: 'accent',
+      icon_color: 'black',
+    };
+
+    c.fab_disabled = {
+      icon: 'editor:attach-money',
+      button_color: 'primary',
+      attributes: disabled,
+    }
   },
 });

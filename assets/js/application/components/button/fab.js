@@ -1,17 +1,18 @@
 App.View.extend({
-  name: 'components/button/icon',
-  tagName: 'paper-icon-button',
+  name: 'components/button/fab',
+  tagName: 'paper-fab',
   events:{
     'click': '_onClick',
   },
   dependencies: [
-    "paper-icon-button/paper-icon-button.html",
+    "paper-fab/paper-fab.html",
   ],
   data_source:[
     {key: 'icon', required: true},
     {key: 'ripple', required: false, default: true, options: [true,false]},
     {key: 'button_color', required: false, default: false, options: ['primary','accent']},
-    {key: 'icon_color', required: false, default: 'black', options: ['black', 'white']},
+    {key: 'icon_color', required: false, default: 'white', options: ['black', 'white']},
+    {key: 'mini', required: false, default: false},
     {key: 'event_handler', required: false},
     {key: 'attributes', required: false},
   ],
@@ -40,9 +41,9 @@ App.View.extend({
       }
 
       // Determine class for text color
-      // if (this.data.icon_color == 'white') {
-      //   classes += "text-white";
-      // }
+      if (this.data.icon_color == 'black') {
+        classes += "text-black";
+      }
     }
 
     // Determine attributes
@@ -52,6 +53,10 @@ App.View.extend({
 
     if (!this.data.attributes.has('id')) {
       this.data.attributes.set('id',attrs.id);
+    }
+
+    if (this.data.mini) {
+      attrs.mini = true;
     }
 
     this.$el.attr(attrs);
@@ -92,8 +97,8 @@ App.View.extend({
           break;
         }
       }
-      if (this.data.icon_color == 'white') {
-        this.$el.addClass('text-white');
+      if (this.data.icon_color == 'black') {
+        this.$el.addClass('text-black');
       }
     }
   },
