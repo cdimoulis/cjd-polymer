@@ -9,6 +9,7 @@ App.View.extend({
   data_source: [
     {key: 'model', required: true},
     {key: 'attribute', required: true},
+    {key: 'value', required: true},
     {key: 'attributes', required: false},
     {key: 'label', required: false, default: ''},
   ],
@@ -28,7 +29,7 @@ App.View.extend({
       classes: '',
     };
 
-    if (this.data.model.get(this.data.attribute)) {
+    if (this.data.model.get(this.data.attribute) == this.data.value) {
       this.display.attrs += 'checked ';
       this.checked = true;
     }
@@ -53,7 +54,7 @@ App.View.extend({
 
   handleModelChange: function (model, value, options) {
     if (!options[this.cid+'_silent']) {
-      if (this.data.model.get(this.data.attribute)) {
+      if (this.data.model.get(this.data.attribute) == this.data.value) {
         this.$el.find('paper-radio-button').attr('checked', true);
         this.checked = true;
       }
@@ -69,11 +70,17 @@ App.View.extend({
   },
 
   _onClick: function() {
-    obj = {};
-    obj[this.data.attribute] = !this.checked;
+    this.checked = !this.checked
+    if (this.checked) {
+      obj = {};
+      obj[this.data.attribute] = this.data.value;
+    }
+    else {
+      obj = {};
+      obj[this.data.attribute] = '';
+    }
     options = {};
     options[this.cid+"_silent"] = true;
     this.data.model.set(obj, options);
-    this.checked = !this.checked;
   },
 });

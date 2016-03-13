@@ -6,7 +6,7 @@ App.Page.extend({
 
   setup: function() {
     this.components = c = {};
-    var model = new App.Model();
+    var model = new App.Model({group: 'second'});
     var attrs = new App.Model({disabled: true});
     window.model = model;
     window.attrs = attrs;
@@ -27,14 +27,44 @@ App.Page.extend({
     c.radio = {
       model: model,
       attribute: 'radio',
+      value: 'pizza',
       label: 'Radio',
     };
 
     c.radio_disabled = {
       model: model,
       attribute: 'radio_disabled',
+      value: 'veggies',
       label: 'Radio',
       attributes: attrs
+    };
+
+    c.radio_first = {
+      model: model,
+      attribute: 'group',
+      value: 'first',
+      label: 'First',
+    };
+
+    c.radio_second = {
+      model: model,
+      attribute: 'group',
+      value: 'second',
+      label: 'Second',
+    };
+
+    c.radio_third = {
+      model: model,
+      attribute: 'group',
+      value: 'third',
+      label: 'Third',
+    };
+
+    c.radio_fourth = {
+      model: model,
+      attribute: 'group',
+      value: 'fourth',
+      label: 'Fourth',
     };
 
   },
