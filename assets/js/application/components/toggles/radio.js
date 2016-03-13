@@ -1,15 +1,15 @@
 App.View.extend({
-  name: 'components/toggles/checkbox',
-  tagName: 'paper-checkbox',
+  name: 'components/toggles/radio',
   events: {
-    'click': '_onClick',
+    'click paper-radio-button': '_onClick',
   },
   dependencies: [
-    "paper-checkbox/paper-checkbox.html",
+    "paper-radio-button/paper-radio-button.html",
   ],
   data_source: [
     {key: 'model', required: true},
     {key: 'attribute', required: true},
+    {key: 'value', required: true},
     {key: 'attributes', required: false},
     {key: 'label', required: false, default: ''},
   ],
@@ -20,14 +20,18 @@ App.View.extend({
 
   setup: function() {
     _.bindAll(this, 'handleModelChange', '_handleDisabled', '_onClick');
-    this.data.attributes = this.data.attributes || new App.Model()
+    this.data.attributes = this.data.attributes || new App.Model();
+    this.checked = false;
 
     this.display = {
       label: this.data.label,
+      attrs: '',
+      classes: '',
     };
 
-    if (this.data.model.get(this.data.attribute)) {
-      this.$el.attr('checked',true);
+    if (this.data.model.get(this.data.attribute) == this.data.value) {
+      this.display.attrs += 'checked ';
+      this.checked = true;
     }
 
     // Listen for model and attr change
@@ -36,26 +40,27 @@ App.View.extend({
   },
 
   setupAttributesModel: function() {
-    var attrs = {};
+    var _this = this;
 
     _.each(this.data.attributes.attributes, function(val, key) {
       if (!val || key == 'class'){
         return;
       }
-      attrs[key] = val;
+      _this.display.attrs += key+'='+val+' ';
     });
 
-    this.$el.attr(attrs);
-    this.$el.addClass(this.data.attributes.get('class'));
+    this.display.classes += this.data.attributes.get('class');
   },
 
   handleModelChange: function (model, value, options) {
     if (!options[this.cid+'_silent']) {
-      if (this.data.model.get(this.data.attribute)) {
-        this.$el.attr('checked', true);
+      if (this.data.model.get(this.data.attribute) == this.data.value) {
+        this.$el.find('paper-radio-button').attr('checked', true);
+        this.checked = true;
       }
       else {
-        this.$el.attr('checked', false);
+        this.$el.find('paper-radio-button').attr('checked', false);
+        this.checked = false;
       }
     }
   },
@@ -65,8 +70,15 @@ App.View.extend({
   },
 
   _onClick: function() {
-    obj = {};
-    obj[this.data.attribute] = !this.el.checked;
+    this.checked = !this.checked
+    if (this.checked) {
+      obj = {};
+      obj[this.data.attribute] = this.data.value;
+    }
+    else {
+      obj = {};
+      obj[this.data.attribute] = '';
+    }
     options = {};
     options[this.cid+"_silent"] = true;
     this.data.model.set(obj, options);
