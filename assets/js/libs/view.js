@@ -20,7 +20,7 @@ Backbone.View = Backbone.View.extend({
 
   _processDependencies: function() {
     _.each(this.dependencies, function(dependency) {
-      Polymer.Base.importHref('/vendor/'+dependency);
+      App.importDependency(dependency);
     });
   },
 

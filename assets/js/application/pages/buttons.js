@@ -60,14 +60,14 @@ App.Page.extend({
       icon: "flight-takeoff",
       button_color: 'primary',
       icon_color: 'white',
+      event_handler: function() {
+        console.log('flight takeoff');
+      },
     };
 
     c.icon_accent = {
       icon: "flight-land",
       button_color: 'accent',
-      event_handler: function() {
-        console.log('flight takeoff');
-      },
     };
 
     c.icon_disabled = {

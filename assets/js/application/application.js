@@ -17,16 +17,25 @@ this.Application = function (options) {
     // Remove the page if one is currently being shown.
 
     var $content = $('#main-content');
-    var page_name = $content.attr('page-name')
-
+    var page_name = 'pages/'+$content.attr('page-name')
     // Add page if exists
-    if (_.has(this.Pages,['pages/'+page_name])){
-      var page = new this.Pages['pages/'+page_name]();
-      page.render();
-      page.appendTo($content);
+    if (_.has(this.Pages,[page_name])){
+      var layout = new this.Views['layouts/main']({hash: {data: {page: page_name}}});
+      layout.render();
+      layout.appendTo($content);
+      // var page = new this.Pages['pages/'+page_name]();
+      // page.render();
+      // page.appendTo($content);
     }
     else {
       throw "No page content "+page_name+" exists."
+    }
+  };
+
+  this.importDependency = function(dependency) {
+    if (!_.contains(this._dependencies, dependency)) {
+      Polymer.Base.importHref('/vendor/'+dependency);
+      this._dependencies.push(dependency);
     }
   };
 
