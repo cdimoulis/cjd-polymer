@@ -32,6 +32,13 @@ this.Application = function (options) {
     }
   };
 
+  this.importDependency = function(dependency) {
+    if (!_.contains(this._dependencies, dependency)) {
+      Polymer.Base.importHref('/vendor/'+dependency);
+      this._dependencies.push(dependency);
+    }
+  };
+
   /*****
   * Adjust the extend function of backbone's classes
   * This change will allow the Application object to
