@@ -41,5 +41,15 @@ App.Page.extend({
         route: '/elements/toggles',
       },
     };
+
+    c.test = {
+      heading: 'Test',
+      attributes: new App.Model({class:'home-card blue_grey'}),
+      content: "Just for testing",
+      footer: "views/home/card/footer",
+      footer_data: {
+        route: "/elemends/test",
+      },
+    };
   },
 });
