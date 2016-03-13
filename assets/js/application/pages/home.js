@@ -48,7 +48,7 @@ App.Page.extend({
       content: "Just for testing",
       footer: "views/home/card/footer",
       footer_data: {
-        route: "/elemends/test",
+        route: "/elements/test",
       },
     };
   },
