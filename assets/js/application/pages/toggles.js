@@ -11,18 +11,31 @@ App.Page.extend({
     window.model = model;
     window.attrs = attrs;
 
-    c.standard = {
+    c.checkbox = {
       model: model,
-      attribute: 'standard',
-      label: 'Standard',
+      attribute: 'checkbox',
+      label: 'Checkbox',
     };
 
-    c.disabled = {
+    c.checkbox_disabled = {
       model: model,
-      attribute: 'disabled',
+      attribute: 'checkbox_disabled',
       label: 'Disabled',
       attributes: attrs,
-    }
+    };
+
+    c.radio = {
+      model: model,
+      attribute: 'radio',
+      label: 'Radio',
+    };
+
+    c.radio_disabled = {
+      model: model,
+      attribute: 'radio_disabled',
+      label: 'Radio',
+      attributes: attrs
+    };
 
   },
 });

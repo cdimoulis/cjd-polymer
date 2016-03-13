@@ -33,7 +33,7 @@ App.Page.extend({
     c.toggles = {
       heading: 'Toggles',
       heading_color: 'white',
-      img_url: 'images/b737_switches_sm.jpeg',
+      img_url: 'images/b737_switches_sm.jpg',
       attributes: new App.Model({class:'home-card'}),
       content: "Variations of polymer toggle controls.",
       footer: "views/home/card/footer",
