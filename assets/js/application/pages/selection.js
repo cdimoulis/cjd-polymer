@@ -2,19 +2,29 @@ App.Page.extend({
   name: "pages/selection",
   init_functions: [
     'setup',
+    'setupMenus',
   ],
 
   setup: function() {
+    var model = new App.Model({
+      item_1: "First",
+      item_2: "Second",
+      item_3: "Third",
+    });
     this.components = c = {};
+    window.model = model;
 
     c.item_1 = {
-      text: "First",
+      model: model,
+      attribute: "item_1",
     };
     c.item_2 = {
-      text: "Second",
+      model: model,
+      attribute: "item_2",
     };
     c.item_3 = {
-      text: "Third",
+      model: model,
+      attribute: "item_3",
     };
 
     c.item_view_1 = {
@@ -61,4 +71,22 @@ App.Page.extend({
       },
     };
   },
+
+  setupMenus: function() {
+    var collection = new App.Collection([
+      {text: "One"},
+      {text: "Two"},
+      {text: "Three"},
+    ]);
+    var selected = new App.Collection();
+    var c = this.components;
+    window.collection = collection;
+    window.selected = selected;
+
+    c.menu = {
+      collection: collection,
+      attribute: 'text',
+      selected: selected,
+    };
+  }
 });
