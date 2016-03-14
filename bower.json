@@ -27,7 +27,8 @@
     "paper-fab": "PolymerElements/paper-fab#^1.2.0",
     "paper-drawer-panel": "PolymerElements/paper-drawer-panel#^1.0.8",
     "paper-tooltip": "PolymerElements/paper-tooltip#^1.1.2",
-    "paper-radio-button": "PolymerElements/paper-radio-button#^1.1.1"
+    "paper-radio-button": "PolymerElements/paper-radio-button#^1.1.1",
+    "paper-toggle-button": "PolymerElements/paper-toggle-button#^1.1.2"
   },
   "name": "cjd-polymer",
   "version": "0.0.0",

@@ -39,6 +39,19 @@ App.Page.extend({
       attributes: attrs
     };
 
+    c.switch = {
+      model: model,
+      attribute: 'switch',
+      label: 'Switch',
+    };
+
+    c.switch_disabled = {
+      model: model,
+      attribute: 'switch_disabled',
+      label: 'Switch',
+      attributes: attrs
+    };
+
     c.radio_first = {
       model: model,
       attribute: 'group',
