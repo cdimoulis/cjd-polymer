@@ -27,10 +27,14 @@ App.View.extend({
 
     this.display = {
       text: this.data.text,
-      raised: this.data.raised,
       icon: this.data.icon,
       classes: '',
       attrs: '',
+      id: this.data.attributes.get('id') || this.cid+'_button',
+    }
+
+    if (!this.data.attributes.has('id')) {
+      this.data.attributes.set('id', this.display.id);
     }
 
     // Determine some raised and ripple
@@ -65,17 +69,16 @@ App.View.extend({
   },
 
   setupAttributesModel: function() {
-    var extra_attrs = "";
+    var _this = this;
 
     _.each(this.data.attributes.attributes, function(val, key) {
       if (!val || key == 'class'){
         return;
       }
-      extra_attrs += key+'="'+val+'" ';
+      _this.attrs += key+'="'+val+'" ';
     });
 
-    this.display.extra_attrs = extra_attrs;
-    this.display.extra_classes = this.data.attributes.get('class') || '';
+    this.display.classes += this.data.attributes.get('class') || '';
   },
 
   _handleDisabled: function(model,disabled) {

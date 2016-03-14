@@ -47,10 +47,17 @@ App.View.extend({
   setup: function() {
     _.bindAll(this, '_setValue', '_onChange', '_onClick');
     var data = this.data;
-    this.components = {};
-    this.display = {};
-    this.display.attrs = "";
     data.attributes = data.attributes || new App.Model()
+    this.components = {};
+    this.display = {
+      attrs: '',
+      classes: '',
+      id: data.attributes.get('id') || this.cid+'_text_input',
+    };
+
+    if (!data.attributes.has('id')) {
+      data.attributes.set('id', this.display.id);
+    }
 
     // Setup the attributes of the paper input element
     this.display.attrs += 'value="'+(data.model.get(data.attribute) || '')+'" ';
@@ -71,7 +78,8 @@ App.View.extend({
     }
 
     if (!data.float_label) {
-      this.display.attrs += 'no-float-label ';
+      console.log('no float');
+      this.display.attrs += 'no-label-float ';
     }
 
     if (data.float_label && data.always_float_label) {
@@ -115,17 +123,16 @@ App.View.extend({
   },
 
   setupAttributesModel: function() {
-    var extra_attrs = "";
+    var _this = this;
 
     _.each(this.data.attributes.attributes, function(val, key) {
       if (!val || key == 'class'){
         return;
       }
-      extra_attrs += key+'="'+val+'" ';
+      _this.display.attrs += key+'="'+val+'" ';
     });
 
-    this.display.extra_attrs = extra_attrs;
-    this.display.extra_classes = this.data.attributes.get('class') || '';
+    this.display.classes += this.data.attributes.get('class') || '';
   },
 
   _setValue: function(model,value) {

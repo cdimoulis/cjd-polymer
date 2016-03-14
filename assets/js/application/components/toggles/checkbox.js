@@ -26,6 +26,13 @@ App.View.extend({
       label: this.data.label,
     };
 
+    var id = this.data.attributes.get('id') || this.cid+'_checkbox';
+    this.$el.attr('id', id);
+
+    if (!this.data.attributes.has('id')) {
+      this.data.attributes.set('id', this.display.id);
+    }
+
     if (this.data.model.get(this.data.attribute)) {
       this.$el.attr('checked',true);
     }
@@ -46,7 +53,7 @@ App.View.extend({
     });
 
     this.$el.attr(attrs);
-    this.$el.addClass(this.data.attributes.get('class'));
+    this.$el.addClass(this.data.attributes.get('class') || '');
   },
 
   handleModelChange: function (model, value, options) {

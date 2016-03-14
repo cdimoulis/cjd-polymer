@@ -26,7 +26,12 @@ App.View.extend({
       label: this.data.label,
       attrs: '',
       classes: '',
+      id: this.data.attributes.get('id') || this.cid+'_switch',
     };
+
+    if (!this.data.attributes.has('id')) {
+      this.data.attributes.set('id', this.display.id);
+    }
 
     if (this.data.model.get(this.data.attribute)) {
       this.display.attrs += 'checked ';
@@ -48,7 +53,7 @@ App.View.extend({
       _this.display.attrs += key+'='+val+' ';
     });
 
-    this.display.classes += this.data.attributes.get('class');
+    this.display.classes += this.data.attributes.get('class') || '';
   },
 
   handleModelChange: function (model, value, options) {

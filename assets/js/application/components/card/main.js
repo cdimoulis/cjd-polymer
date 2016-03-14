@@ -28,31 +28,45 @@ App.View.extend({
     }
 
     this.display = {
-      heading: this.data.heading,
-      img_url: this.data.img_url,
+      attrs: '',
+      classes: '',
       content: this.data.content,
       content_data: this.data.content_data,
       footer: this.data.footer,
       footer_data: this.data.footer,
+      id: this.data.attributes.get('id') || this.cid+'_card',
     };
 
+    if (!this.data.attributes.has('id')) {
+      this.data.attributes.set('id', this.display.id)
+    }
+
+    if (!!this.data.heading) {
+      this.display.attrs += 'heading="'+this.data.heading+'" ';
+    }
+
+    if (!!this.data.img_url) {
+      this.display.attrs += 'image="'+this.data.img_url+'" ';
+    }
+
     if (this.data.heading_color == 'white'){
-      this.display.classes = "heading-text-white";
+      this.display.classes += "heading-text-white ";
     }
   },
 
   setupAttributesModel: function() {
+    var _this = this;
     var extra_attrs = "";
 
     _.each(this.data.attributes.attributes, function(val, key){
       if (!val || key == 'class'){
         return;
       }
-      extra_attrs += key+'="'+val+'" ';
+      _this.display.attrs += key+'="'+val+'" ';
     });
 
     this.display.extra_attrs = extra_attrs;
-    this.display.extra_classes = this.data.attributes.get('class');
+    this.display.classes += this.data.attributes.get('class') || '';
   },
 
   setupContent: function() {
