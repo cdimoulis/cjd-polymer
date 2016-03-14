@@ -94,6 +94,15 @@
         "iron-selectable.html",
         "iron-selection.html"
       ]
+    },
+    "paper-item": {
+      "../vendor": [
+        "paper-item.html",
+        "paper-icon-item.html",
+        "paper-item-body.html",
+        "paper-item-behavior.html",
+        "paper-item-shared-styles.html"
+      ]
     }
   }
 }
