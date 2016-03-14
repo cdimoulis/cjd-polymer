@@ -6,6 +6,7 @@ Backbone.View = Backbone.View.extend({
 
     var _this = this;
     options = options || {}
+    // console.log('init', this.el);
 
     this.template = App.Templates[this.name];
     this.data = {};

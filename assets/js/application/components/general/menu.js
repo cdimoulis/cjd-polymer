@@ -3,6 +3,9 @@ App.View.extend({
   dependencies: [
     "paper-menu/paper-menu.html",
   ],
+  events: {
+    'tap paper-list': '_onClick',
+  },
   data_source: [
     {key: 'collection', required: true},
     {key: 'attribute', required: true},
@@ -17,7 +20,7 @@ App.View.extend({
   ],
 
   setup: function() {
-    _.bindAll(this, '_addItem');
+    _.bindAll(this, 'setupItems', '_addItem', '_onClick');
     this.data.attributes = this.data.attributes || new App.Model();
     this._items = {};
 
@@ -35,6 +38,7 @@ App.View.extend({
     }
 
     // Listen to collection for changes
+    this.listenTo(this.data.collection, 'add', this._addItem);
 
     this.listenTo(this, 'rendered', this.setupItems);
   },
@@ -59,8 +63,16 @@ App.View.extend({
       view_data: this.data.view_data,
     }
 
-    var item = this.addView('components/general/item', data, "paper-menu");
-    console.log('item', item);
+    var s = this.$el.find('div.selectable-content');
+    if (!s[0]) {
+      var item = this.addView('components/general/item', data, "paper-menu");
+    }
+    else {
+      var item = new App.Views['components/general/item']({hash: {data: data}})
+      item.render();
+      var menu = this.$el.find('paper-menu')[0]
+      Polymer.dom(menu).appendChild(item.el)
+    }
     this._items[model.cid] = item;
   },
 
@@ -75,5 +87,9 @@ App.View.extend({
     });
 
     this.display.classes += this.data.attributes.get('class') || '';
+  },
+
+  _onClick: function() {
+    console.log('menu item clicked');
   },
 });

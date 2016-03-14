@@ -1,5 +1,9 @@
 App.View.extend({
   name: 'components/general/item',
+  tagName: 'paper-item',
+  attribute: {
+    'style': 'display: none;',
+  },
   dependencies: [
     "paper-item/paper-item.html",
   ],
@@ -16,6 +20,7 @@ App.View.extend({
   ],
 
   setup: function() {
+    _.bindAll(this, '_rendered');
     this.data.model = this.data.model || new App.Model();
     this.data.attributes = this.data.attributes || new App.Model();
 
@@ -23,13 +28,13 @@ App.View.extend({
       text: this.data.model.get(this.data.attribute),
       view: this.data.view,
       view_data: this.data.view_data,
-      attrs: '',
-      classes: '',
-      id: this.data.attributes.get('id') || this.cid+'_item',
     };
 
+    var id = this.data.attributes.get('id') || this.cid+'_item';
+    this.$el.attr('id', id);
+
     if (!this.data.attributes.has('id')) {
-      this.data.attributes.set('id', this.display.id);
+      this.data.attributes.set('id', id);
     }
 
     // If a new view is not being rendered then listen for change to the
@@ -40,6 +45,8 @@ App.View.extend({
         this.render()
       });
     }
+
+    this.listenTo(this, 'rendered', this._rendered);
   },
 
   setupAttributesModel: function() {
@@ -49,9 +56,13 @@ App.View.extend({
       if (!val || key == 'class'){
         return;
       }
-      _this.display.attrs += key+'='+val+' ';
+      _this.$el.attr(key, val);
     });
 
-    this.display.classes += this.data.attributes.get('class') || '';
+    this.$el.addClass(this.data.attributes.get('class') || '');
+  },
+
+  _rendered: function() {
+    this.$el.fadeIn().css('display', '');
   },
 });
