@@ -51,5 +51,16 @@ App.Page.extend({
         route: "/elements/test",
       },
     };
+
+    c.selection = {
+      heading: 'Selection',
+      img_url: 'images/list_sm.jpg',
+      attributes: new App.Model({class:'home-card'}),
+      content: "Selectable items, lists, etc.",
+      footer: "views/home/card/footer",
+      footer_data: {
+        route: "/elements/selection",
+      },
+    };
   },
 });

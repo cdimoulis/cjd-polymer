@@ -1,15 +1,14 @@
 App.View.extend({
-  name: 'components/toggles/radio',
+  name: 'components/toggles/switch',
   events: {
-    'click paper-radio-button': '_onClick',
+    'click': '_onClick',
   },
   dependencies: [
-    "paper-radio-button/paper-radio-button.html",
+    "paper-toggle-button/paper-toggle-button.html",
   ],
   data_source: [
     {key: 'model', required: true},
     {key: 'attribute', required: true},
-    {key: 'value', required: true},
     {key: 'attributes', required: false},
     {key: 'label', required: false, default: ''},
   ],
@@ -27,14 +26,14 @@ App.View.extend({
       label: this.data.label,
       attrs: '',
       classes: '',
-      id: this.data.attributes.get('id') || this.cid+'_radio_button',
+      id: this.data.attributes.get('id') || this.cid+'_switch',
     };
 
     if (!this.data.attributes.has('id')) {
       this.data.attributes.set('id', this.display.id);
     }
 
-    if (this.data.model.get(this.data.attribute) == this.data.value) {
+    if (this.data.model.get(this.data.attribute)) {
       this.display.attrs += 'checked ';
       this.checked = true;
     }
@@ -59,31 +58,25 @@ App.View.extend({
 
   handleModelChange: function (model, value, options) {
     if (!options[this.cid+'_silent']) {
-      if (this.data.model.get(this.data.attribute) == this.data.value) {
-        this.$el.find('paper-radio-button').attr('checked', true);
+      if (this.data.model.get(this.data.attribute)) {
+        this.$el.find('paper-toggle-button').attr('checked', true);
         this.checked = true;
       }
       else {
-        this.$el.find('paper-radio-button').attr('checked', false);
+        this.$el.find('paper-toggle-button').attr('checked', false);
         this.checked = false;
       }
     }
   },
 
   _handleDisabled: function(model, disable) {
-    this.$el.find('paper-radio-button').attr('disabled', disable);
+    this.$el.find('paper-toggle-button').attr('disabled', disable);
   },
 
   _onClick: function() {
     this.checked = !this.checked
-    if (this.checked) {
-      obj = {};
-      obj[this.data.attribute] = this.data.value;
-    }
-    else {
-      obj = {};
-      obj[this.data.attribute] = '';
-    }
+    obj = {};
+    obj[this.data.attribute] = this.checked;
     options = {};
     options[this.cid+"_silent"] = true;
     this.data.model.set(obj, options);

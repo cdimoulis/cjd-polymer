@@ -40,13 +40,13 @@ App.View.extend({
       }
 
       // Determine class for text color
-      // if (this.data.icon_color == 'white') {
-      //   classes += "text-white";
-      // }
+      if (this.data.icon_color == 'white') {
+        classes += "text-white";
+      }
     }
 
     // Determine attributes
-    var id = this.data.attributes.get('id') || this.cid+'icon_button';
+    var id = this.data.attributes.get('id') || this.cid+'_icon_button';
     attrs.id = id;
     attrs.icon = this.data.icon;
 
@@ -70,7 +70,7 @@ App.View.extend({
     });
 
     this.$el.attr(attrs);
-    this.$el.addClass(this.data.attributes.get('class'));
+    this.$el.addClass(this.data.attributes.get('class')) || '';
   },
 
   _handleDisabled: function(model,disabled) {
