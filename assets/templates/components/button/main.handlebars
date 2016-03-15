@@ -1,7 +1,5 @@
-<paper-button class="{{display.classes}}" {{{display.attrs}}} id='{{display.id}}'>
-  {{#if display.icon}}
-  <iron-icon icon="{{display.icon}}">
-  </iron-icon>
-  {{/if}}
-  {{display.text}}
-</paper-button>
+{{#if display.icon}}
+<iron-icon icon="{{display.icon}}">
+</iron-icon>
+{{/if}}
+<span>{{display.text}}</span>

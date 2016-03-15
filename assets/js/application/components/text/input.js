@@ -99,7 +99,6 @@ App.Component.extend({
     // Build the icon button component
     if (!!data.icon_button) {
       var icon_attrs = new App.Model({suffix: true, class: "text_input_suffix"});
-      icon_attrs.set({disabled: data.attributes.get('disabled')});
       this.components.icon_button = {
         icon: data.icon_button,
         event_handler: data.icon_event_handler,

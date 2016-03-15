@@ -1,4 +1,4 @@
-App.View.extend({
+App.Component.extend({
   name: 'components/button/icon',
   tagName: 'paper-icon-button',
   events:{

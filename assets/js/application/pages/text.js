@@ -103,7 +103,7 @@ App.Page.extend({
     var c = this.components;
     var model = new App.Model({info: "Here is a lot of fun info..."});
     var attrs = new App.Model({rows: 5});
-    window.attrs = attrs;
+    window.textarea_attrs = attrs;
 
     c.textarea = {
       model: model,

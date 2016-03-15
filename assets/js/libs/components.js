@@ -44,8 +44,16 @@ Backbone.Component = Backbone.View.extend({
 
     if (!!this.template){
       var template = this.template(this);
-      var $template = $(template);
 
+      // Consider plain text in the template. Could cause a problem if rendering
+      // this way since it will not become a node. For now wrapping text in
+      // <span> works, but if not here is a start.
+      // var pre = template.replace("\n",'').replace("\r",'');
+      // var text = pre.replace(/<([^]+)>(.*?)<\/([^]+)>/g, "");
+      // console.log('\ntemplate', pre);
+      // console.log('text', text);
+
+      var $template = $(template);
       // Add the children in their dom place
       _.each(this.children,function(view,key){
         _this._addChildView(view, $template);

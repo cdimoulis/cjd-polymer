@@ -1,4 +1,4 @@
-App.View.extend({
+App.Component.extend({
   name: 'components/button/fab',
   tagName: 'paper-fab',
   events:{
