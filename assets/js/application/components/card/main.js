@@ -31,8 +31,6 @@ App.View.extend({
     }
 
     this.display = {
-      // attrs: '',
-      // classes: '',
       content: this.data.content,
       content_data: this.data.content_data,
       footer: this.data.footer,
@@ -47,17 +45,14 @@ App.View.extend({
 
     if (!!this.data.heading) {
       attrs.heading = this.data.heading;
-      // this.display.attrs += 'heading="'+this.data.heading+'" ';
     }
 
     if (!!this.data.img_url) {
       attrs.image = this.data.img_url;
-      // this.display.attrs += 'image="'+this.data.img_url+'" ';
     }
 
     if (this.data.heading_color == 'white'){
-      classes += "headint-text-white ";
-      // this.display.classes += "heading-text-white ";
+      classes += "heading-text-white ";
     }
 
     this.$el.attr(attrs);
