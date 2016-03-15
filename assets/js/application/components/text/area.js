@@ -1,5 +1,6 @@
-App.View.extend({
+App.Component.extend({
   name: 'components/text/area',
+  tagName: 'paper-textarea',
   events: {
     'keyup paper-textarea': '_onChange',
   },
@@ -39,64 +40,64 @@ App.View.extend({
   setup: function() {
     _.bindAll(this, '_setValue', '_onChange');
     var data = this.data;
+    var attrs = {};
     data.attributes = data.attributes || new App.Model()
-    this.display = {
-      attrs: '',
-      classes: '',
-      id: data.attributes.get('id') || this.cid+'_textarea',
-    };
+
+    attrs.id = this.data.attributes.get('id') || this.cid+'_textarea';
 
     if (!data.attributes.has('id')) {
-      data.attributes.set('id', this.display.id);
+      data.attributes.set('id', attrs.id);
     }
 
     // Setup the attributes of the paper input element
-    this.display.attrs += 'value="'+(data.model.get(data.attribute) || '')+'" ';
-    this.display.attrs += 'label="'+data.label+'" ';
-    this.display.attrs += 'error-message="'+data.error_message+'" ';
+    attrs.value = data.model.get(data.attribute) || '';
+    attrs.label = data.label;
+    attrs['error-message'] = data.error_message;
 
     if (!!data.max_count){
-      this.display.attrs += 'maxlength='+data.max_count+' ';
+      attrs.maxlength = data.max_count;
     }
 
     if (!!data.pattern){
       if (!!data.pattern && !!this._standard_patterns[data.pattern]) {
-        this.display.attrs += 'pattern="'+this._standard_patterns[data.pattern]+'" ';
+        attrs.pattern = this._standard_patterns[data.pattern];
       }
       else {
-        this.display.attrs += 'pattern="'+(data.pattern || '')+'" ';
+        attrs.pattern = data.pattern || '';
       }
     }
 
     if (!data.float_label) {
-      this.display.attrs += 'no-float-label ';
+      attrs['no-label-float'] = true;
     }
 
     if (data.float_label && data.always_float_label) {
-      this.display.attrs += 'always-float-label ';
+      attrs['always-float-label'] = true;
     }
 
     if (data.auto_validate) {
-      this.display.attrs += 'auto-validate ';
+      attrs['auto-validate'] = true;
     }
 
     if (data.char_counter) {
-      this.display.attrs += 'char-counter ';
+      attrs['char-counter'] = true;
     }
 
     if (data.password) {
-      this.display.attrs += 'type="password" ';
+      attrs.type = "password";
     }
+
+    this.$el.attr(attrs);
 
     // Listen to changes to models
     this.listenTo(this.data.model, 'change:'+this.data.attribute, this._setValue);
 
     this.listenTo(data.attributes,'change:disabled',function(model,disabled) {
       if (disabled) {
-        this.$el.find('paper-textarea').attr('disabled',true);
+        this.$el.attr('disabled',true);
       }
       else {
-        this.$el.find('paper-textarea').removeAttr('disabled');
+        this.$el.removeAttr('disabled');
       }
     });
   },
@@ -108,10 +109,10 @@ App.View.extend({
       if (!val || key == 'class'){
         return;
       }
-      _this.display.attrs += key+'="'+val+'" ';
+      _this.$el.attr(key, val);
     });
 
-    this.display.classes += this.data.attributes.get('class') || '';
+    this.$el.addClass(this.data.attributes.get('class') || '');
   },
 
   _setValue: function(model,value) {

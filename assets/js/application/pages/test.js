@@ -21,6 +21,14 @@ App.Page.extend({
       model: model,
       attribute: 'text',
       label: 'Special Text',
+      icon_prefix: 'home',
+      text_suffix: 'bla bla bla',
+      icon_suffix: 'mail',
+      char_counter: true,
+      icon_button: "close",
+      icon_event_handler: function() {
+        model.set('text','');
+      },
     };
   },
 
