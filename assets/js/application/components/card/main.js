@@ -1,5 +1,6 @@
 App.View.extend({
   name: 'components/card/main',
+  tagName: 'paper-card',
   dependencies: [
     "paper-card/paper-card.html",
   ],
@@ -22,51 +23,58 @@ App.View.extend({
 
   setup: function() {
     this.data.attributes = this.data.attributes || new App.Model()
+    var attrs = {};
+    var classes = '';
     this._control = {
       content_view: false,
       footer_view: false,
     }
 
     this.display = {
-      attrs: '',
-      classes: '',
+      // attrs: '',
+      // classes: '',
       content: this.data.content,
       content_data: this.data.content_data,
       footer: this.data.footer,
-      footer_data: this.data.footer,
-      id: this.data.attributes.get('id') || this.cid+'_card',
+      footer_data: this.data.footer_data,
     };
 
+    attrs.id = this.data.attributes.get('id') || this.cid+'_card';
+
     if (!this.data.attributes.has('id')) {
-      this.data.attributes.set('id', this.display.id)
+      this.data.attributes.set('id', attrs.id)
     }
 
     if (!!this.data.heading) {
-      this.display.attrs += 'heading="'+this.data.heading+'" ';
+      attrs.heading = this.data.heading;
+      // this.display.attrs += 'heading="'+this.data.heading+'" ';
     }
 
     if (!!this.data.img_url) {
-      this.display.attrs += 'image="'+this.data.img_url+'" ';
+      attrs.image = this.data.img_url;
+      // this.display.attrs += 'image="'+this.data.img_url+'" ';
     }
 
     if (this.data.heading_color == 'white'){
-      this.display.classes += "heading-text-white ";
+      classes += "headint-text-white ";
+      // this.display.classes += "heading-text-white ";
     }
+
+    this.$el.attr(attrs);
+    this.$el.addClass(classes);
   },
 
   setupAttributesModel: function() {
     var _this = this;
-    var extra_attrs = "";
 
     _.each(this.data.attributes.attributes, function(val, key){
       if (!val || key == 'class'){
         return;
       }
-      _this.display.attrs += key+'="'+val+'" ';
+      _this.$el.attr(key, val);
     });
 
-    this.display.extra_attrs = extra_attrs;
-    this.display.classes += this.data.attributes.get('class') || '';
+    this.$el.addClass(this.data.attributes.get('class') || '');
   },
 
   setupContent: function() {
