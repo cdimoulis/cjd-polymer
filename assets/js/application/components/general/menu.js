@@ -1,5 +1,6 @@
-App.View.extend({
+App.Component.extend({
   name: 'components/general/menu',
+  tagName: 'paper-menu',
   dependencies: [
     "paper-menu/paper-menu.html",
   ],
@@ -21,26 +22,52 @@ App.View.extend({
 
   setup: function() {
     _.bindAll(this, 'setupItems', '_addItem', '_onClick');
+    var _this = this;
     this.data.attributes = this.data.attributes || new App.Model();
     this._items = {};
+    var attrs = {};
+    var classes = '';
 
     this.display = {
       text: this.data.text,
       view: this.data.view,
       view_data: this.data.view_data,
-      attrs: '',
-      classes: '',
-      id: this.data.attributes.get('id') || this.cid+"_menu",
     };
 
+    attrs.id = this.data.attributes.get('id') || this.cid+"_menu";
+
     if (!this.data.attributes.has('id')) {
-      this.data.attributes.set('id', this.display.id);
+      this.data.attributes.set('id', attrs.id);
     }
 
+    this.$el.attr(attrs);
+    this.$el.addClass(classes);
     // Listen to collection for changes
+    this.listenTo(this.data.collection, 'sync', this.setupItems);
     this.listenTo(this.data.collection, 'add', this._addItem);
-
+    this.listenTo(this.data.collection, 'remove', this._removeItem);
+    this.listenTo(this.data.collection, 'reset', function() {
+      _this._clearAll();
+      _this.setupItems();
+    });
+    this.listenTo(this.data.collection, 'sort', function() {
+      _this._clearAll();
+      _this.setupItems();
+    });
     this.listenTo(this, 'rendered', this.setupItems);
+  },
+
+  setupAttributesModel: function() {
+    var _this = this;
+
+    _.each(this.data.attributes.attributes, function(val, key) {
+      if (!val || key == 'class'){
+        return;
+      }
+      _this.$el.attr(key, val);
+    });
+
+    this.$el.addClass(this.data.attributes.get('class') || '');
   },
 
   setupItems: function() {
@@ -63,33 +90,31 @@ App.View.extend({
       view_data: this.data.view_data,
     }
 
-    var s = this.$el.find('div.selectable-content');
-    if (!s[0]) {
-      var item = this.addView('components/general/item', data, "paper-menu");
-    }
-    else {
-      var item = new App.Views['components/general/item']({hash: {data: data}})
-      item.render();
-      var menu = this.$el.find('paper-menu')[0]
-      Polymer.dom(menu).appendChild(item.el)
-    }
+    var item = this.addView('components/general/item', data)
+
     this._items[model.cid] = item;
   },
 
-  setupAttributesModel: function() {
+  _removeItem: function(model) {
     var _this = this;
-
-    _.each(this.data.attributes.attributes, function(val, key) {
-      if (!val || key == 'class'){
-        return;
-      }
-      _this.display.attrs += key+'='+val+' ';
+    var item = this._items[model.cid];
+    item.$el.fadeOut(400, function() {
+      _this.removeView(item);
+      delete _this._items[model.cid];
     });
-
-    this.display.classes += this.data.attributes.get('class') || '';
   },
 
   _onClick: function() {
     console.log('menu item clicked');
   },
+
+  _clearAll: function() {
+    var _this = this;
+    _.each(this._items, function(item, key){
+      item.$el.fadeOut(400, function() {
+        _this.removeView(item);
+      });
+    });
+    this._items = {};
+  }
 });

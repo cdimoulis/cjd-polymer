@@ -1,4 +1,4 @@
-App.View.extend({
+App.Component.extend({
   name: 'components/general/item',
   tagName: 'paper-item',
   attribute: {

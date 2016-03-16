@@ -1,6 +1,6 @@
 Backbone.Component = Backbone.View.extend({
 
-  addView: function(view_name, data, selector){
+  addView: function(view_name, data){
     var view;
 
     if (_.has(App.Views, view_name)) {
@@ -15,8 +15,8 @@ Backbone.Component = Backbone.View.extend({
     }
     this.children[view.cid] = view;
     view.render();
-    $selector = this.$el.find(selector);
-    view.appendTo($selector);
+    Polymer.dom(this.el).appendChild(view.el);
+
     return view;
   },
 
