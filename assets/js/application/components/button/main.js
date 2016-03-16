@@ -1,7 +1,8 @@
-App.View.extend({
+App.Component.extend({
   name: 'components/button/main',
+  tagName: 'paper-button',
   events:{
-    'click paper-button': '_onClick',
+    'click': '_onClick',
   },
   dependencies: [
     "paper-button/paper-button.html",
@@ -24,46 +25,50 @@ App.View.extend({
   setup: function() {
     _.bindAll(this, '_handleDisabled', '_onClick');
     this.data.attributes = this.data.attributes || new App.Model()
+    var attrs = {};
+    var classes = '';
 
     this.display = {
       text: this.data.text,
       icon: this.data.icon,
-      classes: '',
-      attrs: '',
-      id: this.data.attributes.get('id') || this.cid+'_button',
     }
 
+    attrs.id = this.data.attributes.get('id') || this.cid+'_button';
+
     if (!this.data.attributes.has('id')) {
-      this.data.attributes.set('id', this.display.id);
+      this.data.attributes.set('id', attrs.id);
     }
 
     // Determine some raised and ripple
     if (this.data.raised) {
-      this.display.attrs += 'raised ';
+      attrs['raised'] = true;
     }
 
     if (!this.data.ripple) {
-      this.display.attrs += 'noink ';
+      attrs['noink'] = true;
     }
 
     // Determine class for background color
     if (!this.data.attributes.get('disabled')) {
       switch(this.data.button_color) {
         case 'primary': {
-          this.display.classes += 'mdl-color--primary ';
+          classes += 'mdl-color--primary ';
           break;
         }
         case 'accent': {
-          this.display.classes += 'mdl-color--accent ';
+          classes += 'mdl-color--accent ';
           break;
         }
       }
 
       // Determine class for text color
       if (this.data.text_color == 'white') {
-        this.display.classes += 'text-white ';
+        classes += 'text-white ';
       }
     }
+
+    this.$el.attr(attrs);
+    this.$el.addClass(classes);
 
     this.listenTo(this.data.attributes, 'change:disabled', this._handleDisabled);
   },
@@ -75,10 +80,10 @@ App.View.extend({
       if (!val || key == 'class'){
         return;
       }
-      _this.attrs += key+'="'+val+'" ';
+      _this.$el.attr(key, val);
     });
 
-    this.display.classes += this.data.attributes.get('class') || '';
+    this.$el.addClass(this.data.attributes.get('class') || '');
   },
 
   _handleDisabled: function(model,disabled) {

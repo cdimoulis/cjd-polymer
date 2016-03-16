@@ -1,4 +1,4 @@
-App.View.extend({
+App.Component.extend({
   name: 'components/toggles/checkbox',
   tagName: 'paper-checkbox',
   events: {

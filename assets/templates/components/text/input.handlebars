@@ -1,19 +1,14 @@
-<paper-input {{{display.attrs}}} class="{{display.classes}}" id='{{display.id}}'>
-  {{#if data.icon_prefix}}
-  <iron-icon icon="{{data.icon_prefix}}" prefix>
-  </iron-icon>
-  {{/if}}
-  {{#if data.text_suffix}}
-  <div suffix>
-    {{data.text_suffix}}
-  </div>
-  {{/if}}
-  {{#if data.icon_suffix}}
-  <iron-icon icon="{{data.icon_suffix}}" suffix>
-  </iron-icon>
-  {{/if}}
-  {{#if data.icon_button}}
-  party
-  {{view 'components/button/icon' data=components.icon_button}}
-  {{/if}}
-</paper-input>
+{{#if data.icon_prefix}}
+<iron-icon icon="{{data.icon_prefix}}" prefix>
+</iron-icon>
+{{/if}}
+{{#if data.text_suffix}}
+<div suffix>{{data.text_suffix}}</div>
+{{/if}}
+{{#if data.icon_suffix}}
+<iron-icon icon="{{data.icon_suffix}}" suffix>
+</iron-icon>
+{{/if}}
+{{#if data.icon_button}}
+{{view 'components/button/icon' data=components.icon_button}}
+{{/if}}

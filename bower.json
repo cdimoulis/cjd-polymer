@@ -29,7 +29,8 @@
     "paper-tooltip": "PolymerElements/paper-tooltip#^1.1.2",
     "paper-radio-button": "PolymerElements/paper-radio-button#^1.1.1",
     "paper-toggle-button": "PolymerElements/paper-toggle-button#^1.1.2",
-    "paper-item": "PolymerElements/paper-item#^1.1.4"
+    "paper-item": "PolymerElements/paper-item#^1.1.4",
+    "paper-menu": "PolymerElements/paper-menu#^1.2.2"
   },
   "name": "cjd-polymer",
   "version": "0.0.0",
@@ -102,6 +103,12 @@
         "paper-item-body.html",
         "paper-item-behavior.html",
         "paper-item-shared-styles.html"
+      ]
+    },
+    "paper-menu": {
+      "../vendor": [
+        "paper-menu.html",
+        "paper-menu-shared-styles.html"
       ]
     }
   }

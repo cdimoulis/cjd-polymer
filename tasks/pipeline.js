@@ -53,6 +53,8 @@ var jsFilesToInject = [
   /**********
   * Application specific requirements
   ***********/
+  'js/libs/view.js',
+  'js/libs/component.js',
   'js/libs/**/*.js',
 
   'js/application/application.js',

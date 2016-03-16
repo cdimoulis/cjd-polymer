@@ -4,9 +4,11 @@ this.Application = function (options) {
 
   this.Models = {};
   this.Collections = {};
+  this.Components = {};
   this.Views = {};
   this.Pages = {};
 
+  this.Component = Backbone.Component.extend();
   this.View = Backbone.View.extend();
   this.Page = this.View.extend();
 
@@ -57,6 +59,7 @@ this.Application = function (options) {
 
   _registerClass(this.Model, this.Models);
   _registerClass(this.Collection, this.Collections);
+  _registerClass(this.Component, this.Components);
   _registerClass(this.View, this.Views);
   _registerClass(this.Page, this.Pages);
   /*********

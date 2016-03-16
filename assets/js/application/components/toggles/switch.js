@@ -1,5 +1,6 @@
 App.View.extend({
   name: 'components/toggles/switch',
+  tagName: 'paper-toggle-button',
   events: {
     'click': '_onClick',
   },
@@ -21,22 +22,26 @@ App.View.extend({
     _.bindAll(this, 'handleModelChange', '_handleDisabled', '_onClick');
     this.data.attributes = this.data.attributes || new App.Model();
     this.checked = false;
+    var attrs = {};
+    var classes = '';
 
     this.display = {
       label: this.data.label,
-      attrs: '',
-      classes: '',
-      id: this.data.attributes.get('id') || this.cid+'_switch',
     };
 
+    attrs.id = this.data.attributes.get('id') || this.cid+'_switch';
+
     if (!this.data.attributes.has('id')) {
-      this.data.attributes.set('id', this.display.id);
+      this.data.attributes.set('id', attrs.id);
     }
 
     if (this.data.model.get(this.data.attribute)) {
-      this.display.attrs += 'checked ';
+      attrs.checked = true;
       this.checked = true;
     }
+
+    this.$el.attr(attrs);
+    this.$el.addClass(classes);
 
     // Listen for model and attr change
     this.listenTo(this.data.model, 'change:'+this.data.attribute, this.handleModelChange);
@@ -50,27 +55,27 @@ App.View.extend({
       if (!val || key == 'class'){
         return;
       }
-      _this.display.attrs += key+'='+val+' ';
+      _this.$el.attr(key, val);
     });
 
-    this.display.classes += this.data.attributes.get('class') || '';
+    this.$el.addClass(this.data.attributes.get('class') || '');
   },
 
   handleModelChange: function (model, value, options) {
     if (!options[this.cid+'_silent']) {
       if (this.data.model.get(this.data.attribute)) {
-        this.$el.find('paper-toggle-button').attr('checked', true);
+        this.$el.attr('checked', true);
         this.checked = true;
       }
       else {
-        this.$el.find('paper-toggle-button').attr('checked', false);
+        this.$el.removeAttr('checked');
         this.checked = false;
       }
     }
   },
 
   _handleDisabled: function(model, disable) {
-    this.$el.find('paper-toggle-button').attr('disabled', disable);
+    this.$el.attr('disabled', disable);
   },
 
   _onClick: function() {
