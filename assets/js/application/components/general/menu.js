@@ -6,6 +6,10 @@ App.Component.extend({
   ],
   events: {
     'tap paper-list': '_onClick',
+    'iron-activate': '_activate',
+    'iron-deselect': '_deselect',
+    'iron-items-changed': '_changed',
+    'iron-select': '_select',
   },
   data_source: [
     {key: 'collection', required: true},
@@ -14,6 +18,7 @@ App.Component.extend({
     {key: 'view', required: false},
     {key: 'view_data', required: false},
     {key: 'attributes', required: false},
+    {key: 'multi', required: false, default: false},
   ],
   init_functions: [
     'setup',
@@ -38,6 +43,10 @@ App.Component.extend({
 
     if (!this.data.attributes.has('id')) {
       this.data.attributes.set('id', attrs.id);
+    }
+
+    if (this.data.multi){
+      attrs.multi = true;
     }
 
     this.$el.attr(attrs);
@@ -116,5 +125,28 @@ App.Component.extend({
       });
     });
     this._items = {};
-  }
+  },
+
+  _activate: function() {
+    console.log('activate');
+  },
+
+  _deselect: function() {
+    if (!_.isUndefined(this.el.selected)) {
+      console.log('deselect', this.el.selected, this.data.collection.at(this.el.selected).get(this.data.attribute));
+    }
+  },
+
+  _changed: function() {
+    if (!_.isUndefined(this.el.selected)) {
+      console.log('changed', this.el.selected, this.data.collection.at(this.el.selected).get(this.data.attribute));
+    }
+  },
+
+  _select: function() {
+    console.log('select',this.el.selectedValues);
+    if (!_.isUndefined(this.el.selected)) {
+      console.log('selected', this.el.selected, this.data.collection.at(this.el.selected).get(this.data.attribute));
+    }
+  },
 });
