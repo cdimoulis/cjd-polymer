@@ -2,7 +2,7 @@ App.Component.extend({
   name: 'components/text/area',
   tagName: 'paper-textarea',
   events: {
-    'keyup paper-textarea': '_onChange',
+    'change': '_onChange',
   },
   dependencies: [
     "paper-input/paper-textarea.html",
@@ -121,9 +121,8 @@ App.Component.extend({
   },
 
   _onChange: function(e) {
-    var input = this.$el.find('paper-textarea')[0];
-    if (input.validate()) {
-      this.data.model.set(this.data.attribute, e.currentTarget.value);
+    if (this.el.validate()) {
+      this.data.model.set(this.data.attribute, this.el.value);
     }
   },
 });

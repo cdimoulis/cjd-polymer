@@ -2,7 +2,7 @@ App.Component.extend({
   name: 'components/toggles/checkbox',
   tagName: 'paper-checkbox',
   events: {
-    'click': '_onClick',
+    'change': '_onChange',
   },
   dependencies: [
     "paper-checkbox/paper-checkbox.html",
@@ -19,7 +19,7 @@ App.Component.extend({
   ],
 
   setup: function() {
-    _.bindAll(this, 'handleModelChange', '_handleDisabled', '_onClick');
+    _.bindAll(this, 'handleModelChange', '_handleDisabled', '_onChange');
     this.data.attributes = this.data.attributes || new App.Model()
 
     this.display = {
@@ -59,10 +59,10 @@ App.Component.extend({
   handleModelChange: function (model, value, options) {
     if (!options[this.cid+'_silent']) {
       if (this.data.model.get(this.data.attribute)) {
-        this.$el.attr('checked', true);
+        this.el.checked = true
       }
       else {
-        this.$el.attr('checked', false);
+        this.el.checked = false
       }
     }
   },
@@ -71,9 +71,9 @@ App.Component.extend({
     this.$el.attr('disabled', disable);
   },
 
-  _onClick: function() {
+  _onChange: function() {
     obj = {};
-    obj[this.data.attribute] = !this.el.checked;
+    obj[this.data.attribute] = this.el.checked;
     options = {};
     options[this.cid+"_silent"] = true;
     this.data.model.set(obj, options);
