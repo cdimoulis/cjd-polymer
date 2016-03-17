@@ -5,7 +5,6 @@ App.Component.extend({
     "paper-menu/paper-menu.html",
   ],
   events: {
-    'tap paper-list': '_onClick',
     'iron-activate': '_activate',
     'iron-deselect': '_deselect',
     'iron-items-changed': '_changed',
@@ -26,7 +25,8 @@ App.Component.extend({
   ],
 
   setup: function() {
-    _.bindAll(this, 'setupItems', '_addItem', '_onClick');
+    _.bindAll(this, 'setupItems', '_addItem', '_activate', '_deselect',
+              '_changed', '_select');
     var _this = this;
     this.data.attributes = this.data.attributes || new App.Model();
     this._items = {};
