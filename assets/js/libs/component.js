@@ -27,12 +27,20 @@ Backbone.Component = Backbone.View.extend({
   },
 
   _addChildView: function(view, $template) {
+    view.render();
+
     // Find the placeholder for where to put the view's markup
     var selector = view.tagName+'[data-view-name="'+view.name+'"]'+
                                 '[data-view-cid="'+view.cid+'"]';
     var $placeholder = $template.find(selector);
-    view.render();
-    $placeholder.replaceWith(view.$el);
+    // Check if the template is the view to replace
+    if (!$placeholder.length && $template.is(selector)) {
+      $template = view.$el;
+    }
+    else {
+      $placeholder.replaceWith(view.$el);
+    }
+    return $template;
   },
 
   render: function() {
@@ -52,11 +60,10 @@ Backbone.Component = Backbone.View.extend({
       // var text = pre.replace(/<([^]+)>(.*?)<\/([^]+)>/g, "");
       // console.log('\ntemplate', pre);
       // console.log('text', text);
-
       var $template = $(template);
       // Add the children in their dom place
       _.each(this.children,function(view,key){
-        _this._addChildView(view, $template);
+        $template = _this._addChildView(view, $template);
       });
 
       $template.each(function(index, node) {

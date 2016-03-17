@@ -2,7 +2,7 @@ App.Component.extend({
   name: 'components/text/input',
   tagName: 'paper-input',
   events: {
-    'keyup': '_onChange',
+    'change': '_onChange',
     'click paper-icon-button': '_onClick',
   },
   dependencies: [
@@ -140,7 +140,7 @@ App.Component.extend({
 
   _onChange: function(e) {
     if (this.el.validate()) {
-      this.data.model.set(this.data.attribute, e.currentTarget.value);
+      this.data.model.set(this.data.attribute, this.el.value);
     }
   },
 

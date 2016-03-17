@@ -87,6 +87,7 @@ App.Page.extend({
       collection: collection,
       attribute: 'text',
       selected: selected,
+      multi: true,
     };
   }
 });
