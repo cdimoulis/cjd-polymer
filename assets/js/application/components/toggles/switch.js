@@ -2,7 +2,7 @@ App.View.extend({
   name: 'components/toggles/switch',
   tagName: 'paper-toggle-button',
   events: {
-    'click': '_onClick',
+    'change': '_onChange',
   },
   dependencies: [
     "paper-toggle-button/paper-toggle-button.html",
@@ -19,9 +19,8 @@ App.View.extend({
   ],
 
   setup: function() {
-    _.bindAll(this, 'handleModelChange', '_handleDisabled', '_onClick');
+    _.bindAll(this, 'handleModelChange', '_handleDisabled', '_onChange');
     this.data.attributes = this.data.attributes || new App.Model();
-    this.checked = false;
     var attrs = {};
     var classes = '';
 
@@ -37,7 +36,6 @@ App.View.extend({
 
     if (this.data.model.get(this.data.attribute)) {
       attrs.checked = true;
-      this.checked = true;
     }
 
     this.$el.attr(attrs);
@@ -64,12 +62,10 @@ App.View.extend({
   handleModelChange: function (model, value, options) {
     if (!options[this.cid+'_silent']) {
       if (this.data.model.get(this.data.attribute)) {
-        this.$el.attr('checked', true);
-        this.checked = true;
+        this.el.checked = true;
       }
       else {
-        this.$el.removeAttr('checked');
-        this.checked = false;
+        this.el.checked = false;
       }
     }
   },
@@ -78,10 +74,9 @@ App.View.extend({
     this.$el.attr('disabled', disable);
   },
 
-  _onClick: function() {
-    this.checked = !this.checked
+  _onChange: function() {
     obj = {};
-    obj[this.data.attribute] = this.checked;
+    obj[this.data.attribute] = this.el.checked;
     options = {};
     options[this.cid+"_silent"] = true;
     this.data.model.set(obj, options);
