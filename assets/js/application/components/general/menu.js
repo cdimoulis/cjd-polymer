@@ -132,21 +132,14 @@ App.Component.extend({
   },
 
   _deselect: function() {
-    if (!_.isUndefined(this.el.selected)) {
-      console.log('deselect', this.el.selected, this.data.collection.at(this.el.selected).get(this.data.attribute));
-    }
+    console.log('deselect', this.el.selectedValues);
   },
 
   _changed: function() {
-    if (!_.isUndefined(this.el.selected)) {
-      console.log('changed', this.el.selected, this.data.collection.at(this.el.selected).get(this.data.attribute));
-    }
+    console.log('menu change');
   },
 
   _select: function() {
     console.log('select',this.el.selectedValues);
-    if (!_.isUndefined(this.el.selected)) {
-      console.log('selected', this.el.selected, this.data.collection.at(this.el.selected).get(this.data.attribute));
-    }
   },
 });
