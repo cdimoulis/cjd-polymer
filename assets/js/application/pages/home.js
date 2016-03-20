@@ -42,16 +42,6 @@ App.Page.extend({
       },
     };
 
-    c.test = {
-      heading: 'Test',
-      attributes: new App.Model({class:'home-card blue_grey'}),
-      content: "Just for testing",
-      footer: "views/home/card/footer",
-      footer_data: {
-        route: "/elements/test",
-      },
-    };
-
     c.selection = {
       heading: 'Selection',
       img_url: 'images/list_sm.jpg',
@@ -60,6 +50,30 @@ App.Page.extend({
       footer: "views/home/card/footer",
       footer_data: {
         route: "/elements/selection",
+      },
+    };
+
+    c.misc = {
+      heading: 'Miscellaneous',
+      heading_color: 'white',
+      img_url: 'images/chicago_grayscale_sm.jpg',
+      attributes: new App.Model({class:'home-card'}),
+      content: "Miscellaneous components",
+      footer: "views/home/card/footer",
+      footer_data: {
+        route: "/elements/misc",
+      },
+    };
+
+    c.test = {
+      heading: 'Test',
+      heading_color: 'white',
+      img_url: 'images/whiskey_glasses_sm.jpg',
+      attributes: new App.Model({class:'home-card blue_grey'}),
+      content: "Just for testing",
+      footer: "views/home/card/footer",
+      footer_data: {
+        route: "/elements/test",
       },
     };
   },
