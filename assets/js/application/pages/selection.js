@@ -78,15 +78,22 @@ App.Page.extend({
       {text: "Two"},
       {text: "Three"},
     ]);
-    var selected = new App.Collection();
+    var selected = new App.Collection([collection.first()]);
+    var selected_multi = new App.Collection([collection.first(),collection.last()])
     var c = this.components;
     window.collection = collection;
     window.selected = selected;
+    window.selected_multi = selected_multi
 
     c.menu = {
       collection: collection,
       attribute: 'text',
       selected: selected,
+    };
+    c.menu_multi = {
+      collection: collection,
+      attribute: 'text',
+      selected: selected_multi,
       multi: true,
     };
   }
