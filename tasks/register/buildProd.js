@@ -23,7 +23,6 @@ module.exports = function(grunt) {
     'cssmin',
     'linkAssetsBuildProd',
     'clean:build',
-    'copy:polymer_neon_animation',
     'copy:build'
   ]);
 };
