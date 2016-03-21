@@ -22,7 +22,6 @@ module.exports = function(grunt) {
     'compileAssets',
     'linkAssetsBuild',
     'clean:build',
-    'copy:polymer_neon_animation',
     'copy:build'
   ]);
 };
