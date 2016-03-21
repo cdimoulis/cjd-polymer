@@ -1,6 +1,9 @@
 App.Component.extend({
   name: 'components/general/selection',
   tagName: 'paper-dropdown-menu',
+  attributes: {
+    'no-animations': true,
+  },
   dependencies: [
     'paper-dropdown-menu/paper-dropdown-menu.html',
   ],
@@ -18,6 +21,7 @@ App.Component.extend({
 
   setup: function() {
     this.data.attributes = this.data.attributes || new App.Model();
+    var attrs = {};
 
     // Setup menu component
     this._selected_collection = new App.Collection(this.data.selected.models);
@@ -26,37 +30,72 @@ App.Component.extend({
         collection: this.data.collection,
         attribute: this.data.attribute,
         selected: this._selected_collection,
+        attributes: new App.Model({class: 'dropdown-content'})
       }
     };
 
     // Setup attributes
-    this.$el.attr('label', this.data.label);
+    attrs.id = this.data.attributes.get('id') || this.cid+'_dropdown_menu';
+    if (!this.data.attributes.has('id')) {
+      this.data.attributes.set('id', attrs.id);
+    }
+    attrs.label = this.data.label;
+
+    this.$el.attr(attrs);
 
     // Listen to selection
-    this.listenTo(this._selected_collection, 'add', function(model) {
-      this.data.selected.add(model);
+    this.listenTo(this._selected_collection, 'add', function(model, colleciton, options) {
+      if (!options[this.el.id+'_silent']) {
+        options = {};
+        options[this.el.id+'_silent'] = true
+        this.data.selected.add(model, options);
+      }
     });
 
-    this.listenTo(this._selected_collection, 'remove', function(model) {
-      this.data.selected.remove(model)
+    this.listenTo(this._selected_collection, 'remove', function(model, colleciton, options) {
+      if (!options[this.el.id+'_silent']) {
+        options = {};
+        options[this.el.id+'_silent'] = true
+        this.data.selected.remove(model, options)
+      }
     });
 
-    this.listenTo(this._selected_collection, 'reset', function() {
-      this.data.selected.reset();
+    this.listenTo(this._selected_collection, 'reset', function(colleciton, options) {
+      if (!options[this.el.id+'_silent']) {
+        options = {};
+        options[this.el.id+'_silent'] = true
+        this.data.selected.reset([], options);
+      }
     });
 
     // Listen to this element' selection
-    this.listenTo(this.data.selected, 'add', function(model) {
-      this._selected_collection.reset([model]);
+    this.listenTo(this.data.selected, 'add', function(model, collection, options) {
+      if (!options[this.el.id+'_silent']) {
+        options = {};
+        options[this.el.id+'_silent'] = true
+        this._selected_collection.reset([model], options);
+      }
     });
-    this.listenTo(this.data.selected, 'remove', function(model) {
-      this._selected_collection.remove(model);
+    this.listenTo(this.data.selected, 'remove', function(model, colleciton, options) {
+      if (!options[this.el.id+'_silent']) {
+        options = {};
+        options[this.el.id+'_silent'] = true
+        this._selected_collection.remove(model, options);
+      }
     });
-    this.listenTo(this.data.selected, 'reset', function() {
-      this._selected_collection.reset(this.data.selected.models);
+    this.listenTo(this.data.selected, 'reset', function(colleciton, options) {
+      if (!options[this.el.id+'_silent']) {
+        options = {};
+        options[this.el.id+'_silent'] = true
+        this._selected_collection.reset(this.data.selected.models, options);
+      }
     });
-    this.listenTo(this.data.selected, 'sync', function(model) {
-      this._selected_collection.reset(this.data.selected.models);
+    this.listenTo(this.data.selected, 'sync', function(collection, response, options) {
+      if (!options[this.el.id+'_silent']) {
+        options = {};
+        options[this.el.id+'_silent'] = true
+        this._selected_collection.reset(this.data.selected.models, options);
+      }
     });
   },
 

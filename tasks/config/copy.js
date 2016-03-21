@@ -30,6 +30,14 @@ module.exports = function(grunt) {
         dest: '.tmp/public'
       }]
     },
+    polymer_neon_animation: {
+      files: [{
+        expand: true,
+        cwd: "./bower_components/neon-animation/animations",
+        src: ['*.html'],
+        dest: 'assets/vendor/neon-animation/animations'
+      }]
+    },
     build: {
       files: [{
         expand: true,
