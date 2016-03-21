@@ -25,9 +25,10 @@ App.Component.extend({
   ],
 
   setup: function() {
-    _.bindAll(this, 'setupItems', '_addItem', '_activate', '_deselect',
-              '_changed', '_select');
+    _.bindAll(this, 'setupItems','setupSelected', '_addItem', '_activate',
+              '_deselect', '_changed', '_select');
     var _this = this;
+    this._selected_values = [];
     this.data.attributes = this.data.attributes || new App.Model();
     this._items = {};
     var attrs = {};
@@ -51,6 +52,7 @@ App.Component.extend({
 
     this.$el.attr(attrs);
     this.$el.addClass(classes);
+
     // Listen to collection for changes
     this.listenTo(this.data.collection, 'sync', this.setupItems);
     this.listenTo(this.data.collection, 'add', this._addItem);
@@ -64,6 +66,13 @@ App.Component.extend({
       _this.setupItems();
     });
     this.listenTo(this, 'rendered', this.setupItems);
+
+    // Listen to selected colleciton for changes
+    this.listenTo(this.data.selected, 'sync reset add remove', function() {
+      if (!!this.el.items) {
+        this.setupSelected();
+      }
+    });
   },
 
   setupAttributesModel: function() {
@@ -85,6 +94,32 @@ App.Component.extend({
     this.data.collection.each(function(model) {
       _this._addItem(model);
     });
+  },
+
+  setupSelected: function() {
+    if (this.data.multi) {
+      var _this = this;
+      var selected = [];
+      this.data.selected.each(function(model) {
+        var index = _this.data.collection.indexOf(model);
+        if (index >= 0) {
+          selected.push(index);
+        }
+      });
+      // this.$el.prop('selectedValues', selected);
+      this.el.selectedValues = selected;
+    }
+    else {
+      var index;
+      var first = this.data.selected.first();
+      if (!!first) {
+        index = this.data.collection.indexOf(first);
+      }
+      if (index >= 0) {
+        // this.$el.prop('selected', index);
+        this.el.selected = index;
+      }
+    }
   },
 
   _addItem: function(model) {
@@ -113,10 +148,6 @@ App.Component.extend({
     });
   },
 
-  _onClick: function() {
-    console.log('menu item clicked');
-  },
-
   _clearAll: function() {
     var _this = this;
     _.each(this._items, function(item, key){
@@ -125,21 +156,36 @@ App.Component.extend({
       });
     });
     this._items = {};
+    this.data.selected.reset();
   },
 
   _activate: function() {
-    console.log('activate');
   },
 
-  _deselect: function() {
-    console.log('deselect', this.el.selectedValues);
+  _deselect: function(e) {
+    if (this.data.multi) {
+      var diff = _.difference(this._selected_values, this.el.selectedValues);
+      console.log('deselect diff', diff[0]);
+      this.data.selected.remove(this.data.collection.at(diff[0]));
+      this._selected_values = _.clone(this.el.selectedValues);
+    }
+    else {
+      this.data.selected.remove(this.data.selected.first());
+    }
   },
 
   _changed: function() {
-    console.log('menu change');
+    this.setupSelected();
   },
 
-  _select: function() {
-    console.log('select',this.el.selectedValues);
+  _select: function(e) {
+    if (this.data.multi) {
+      var diff = _.difference(this.el.selectedValues, this._selected_values);
+      this.data.selected.add(this.data.collection.at(diff[0]));
+      this._selected_values = _.clone(this.el.selectedValues);
+    }
+    else {
+      this.data.selected.add(this.data.collection.at(this.el.selected));
+    }
   },
 });

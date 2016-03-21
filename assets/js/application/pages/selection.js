@@ -78,16 +78,33 @@ App.Page.extend({
       {text: "Two"},
       {text: "Three"},
     ]);
-    var selected = new App.Collection();
+    var selected = new App.Collection([collection.first()]);
+    var selected_multi = new App.Collection([collection.first(),collection.last()])
+    var selected_sel = new App.Collection();
     var c = this.components;
     window.collection = collection;
     window.selected = selected;
+    window.selected_multi = selected_multi;
+    window.selected_sel = selected_sel;
 
     c.menu = {
       collection: collection,
       attribute: 'text',
       selected: selected,
+    };
+
+    c.menu_multi = {
+      collection: collection,
+      attribute: 'text',
+      selected: selected_multi,
       multi: true,
+    };
+
+    c.selection = {
+      collection: collection,
+      attribute: 'text',
+      selected: selected_sel,
+      label: 'Select Number',
     };
   }
 });

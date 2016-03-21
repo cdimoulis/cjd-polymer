@@ -30,7 +30,10 @@
     "paper-radio-button": "PolymerElements/paper-radio-button#^1.1.1",
     "paper-toggle-button": "PolymerElements/paper-toggle-button#^1.1.2",
     "paper-item": "PolymerElements/paper-item#^1.1.4",
-    "paper-menu": "PolymerElements/paper-menu#^1.2.2"
+    "paper-menu": "PolymerElements/paper-menu#^1.2.2",
+    "paper-toast": "PolymerElements/paper-toast#^1.2.1",
+    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.1.3",
+    "paper-listbox": "PolymerElements/paper-listbox#^1.1.2"
   },
   "name": "cjd-polymer",
   "version": "0.0.0",
@@ -69,6 +72,39 @@
         "paper-material-shared-styles.html"
       ]
     },
+    "paper-item": {
+      "../vendor": [
+        "paper-item.html",
+        "paper-icon-item.html",
+        "paper-item-body.html",
+        "paper-item-behavior.html",
+        "paper-item-shared-styles.html"
+      ]
+    },
+    "paper-menu": {
+      "../vendor": [
+        "paper-menu.html",
+        "paper-menu-shared-styles.html"
+      ]
+    },
+    "paper-menu-button": {
+      "../vendor": [
+        "paper-menu-button.html",
+        "paper-menu-button-animations.html"
+      ]
+    },
+    "iron-dropdown": {
+      "../vendor": [
+        "iron-dropdown.html",
+        "iron-dropdown-scroll-manager.html"
+      ]
+    },
+    "iron-flex-layout": {
+      "../vendor": [
+        "iron-flex-layout.html",
+        "iron-flex-layout-classes.html"
+      ]
+    },
     "iron-icons": {
       "../vendor": [
         "communication-icons.html",
@@ -83,10 +119,11 @@
         "social-icons.html"
       ]
     },
-    "iron-flex-layout": {
+    "iron-overlay-behavior": {
       "../vendor": [
-        "iron-flex-layout.html",
-        "iron-flex-layout-classes.html"
+        "iron-overlay-behavior.html",
+        "iron-overlay-backdrop.html",
+        "iron-overlay-manager.html"
       ]
     },
     "iron-selector": {
@@ -96,19 +133,23 @@
         "iron-selection.html"
       ]
     },
-    "paper-item": {
+    "neon-animation": {
       "../vendor": [
-        "paper-item.html",
-        "paper-icon-item.html",
-        "paper-item-body.html",
-        "paper-item-behavior.html",
-        "paper-item-shared-styles.html"
+        "neon-animatable-behavior.html",
+        "neon-animatable.html",
+        "neon-animated-pages.html",
+        "neon-animation-behavior.html",
+        "neon-animation-runner-behavior.html",
+        "neon-animations.html",
+        "neon-shared-element-animatable-behavior.html",
+        "neon-shared-element-animation-behavoir.html",
+        "web-animations.html"
       ]
     },
-    "paper-menu": {
+    "web-animations-js": {
       "../vendor": [
-        "paper-menu.html",
-        "paper-menu-shared-styles.html"
+        "web-animations.min.js",
+        "web-animations-next-lite.min.js"
       ]
     }
   }

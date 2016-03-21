@@ -18,6 +18,7 @@ module.exports = function(grunt) {
     'handlebars:dev',
     'less:dev',
     'sass:dev',
+    'copy:polymer_neon_animation',
     'copy:dev',
     'coffee:dev'
   ]);
