@@ -56,21 +56,26 @@ App.Component.extend({
 
     this.$el.attr(attrs);
     this.$el.addClass(classes);
-    this.listenTo(this.data.attributes,'change:disabled',this._handleDisabled);
+    this.listenTo(this.data.attributes, 'change:disabled', this._handleDisabled);
+    this.listenTo(this.data.attributes, 'change', this.setupAttributesModel);
   },
 
   setupAttributesModel: function() {
-    var attrs = {};
+    var _this = this;
 
     _.each(this.data.attributes.attributes, function(val, key) {
-      if (!val || key == 'class'){
+      if (key == 'class') {
         return;
       }
-      attrs[key] = val;
+      if (_.isBoolean(val) && !val) {
+        _this.$el.removeAttr(key);
+      }
+      else {
+        _this.$el.attr(key, val);
+      }
     });
 
-    this.$el.attr(attrs);
-    this.$el.addClass(this.data.attributes.get('class')) || '';
+    this.$el.addClass(this.data.attributes.get('class') || '');
   },
 
   _handleDisabled: function(model,disabled) {

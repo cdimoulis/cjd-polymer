@@ -92,24 +92,23 @@ App.Component.extend({
     // Listen to changes to models
     this.listenTo(this.data.model, 'change:'+this.data.attribute, this._setValue);
 
-    this.listenTo(data.attributes,'change:disabled',function(model,disabled) {
-      if (disabled) {
-        this.$el.attr('disabled',true);
-      }
-      else {
-        this.$el.removeAttr('disabled');
-      }
-    });
+    // Listen to attributes changes
+    this.listenTo(this.data.attributes, 'change', this.setupAttributesModel);
   },
 
   setupAttributesModel: function() {
     var _this = this;
 
     _.each(this.data.attributes.attributes, function(val, key) {
-      if (!val || key == 'class'){
+      if (key == 'class') {
         return;
       }
-      _this.$el.attr(key, val);
+      if (_.isBoolean(val) && !val) {
+        _this.$el.removeAttr(key);
+      }
+      else {
+        _this.$el.attr(key, val);
+      }
     });
 
     this.$el.addClass(this.data.attributes.get('class') || '');
