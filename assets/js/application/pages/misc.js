@@ -5,6 +5,11 @@ App.Page.extend({
   ],
 
   setup: function() {
+    var model = new App.Model();
+    window.model = model;
+    this.components = c = {};
+
+    
 
   },
 });

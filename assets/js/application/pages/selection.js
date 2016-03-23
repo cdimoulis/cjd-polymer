@@ -81,11 +81,13 @@ App.Page.extend({
     var selected = new App.Collection([collection.first()]);
     var selected_multi = new App.Collection([collection.first(),collection.last()])
     var selected_sel = new App.Collection();
+    var attrs_sel = new App.Model({disabled: true});
     var c = this.components;
     window.collection = collection;
     window.selected = selected;
     window.selected_multi = selected_multi;
     window.selected_sel = selected_sel;
+    window.attrs_sel = attrs_sel;
 
     c.menu = {
       collection: collection,
@@ -105,6 +107,14 @@ App.Page.extend({
       attribute: 'text',
       selected: selected_sel,
       label: 'Select Number',
+    };
+
+    c.selection_disabled = {
+      collection: collection,
+      attribute: 'text',
+      selected: new App.Collection(),
+      label: 'Disabled',
+      attributes: attrs_sel,
     };
   }
 });

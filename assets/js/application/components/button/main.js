@@ -71,16 +71,22 @@ App.Component.extend({
     this.$el.addClass(classes);
 
     this.listenTo(this.data.attributes, 'change:disabled', this._handleDisabled);
+    this.listenTo(this.data.attributes, 'change', this.setupAttributesModel);
   },
 
   setupAttributesModel: function() {
     var _this = this;
 
     _.each(this.data.attributes.attributes, function(val, key) {
-      if (!val || key == 'class'){
+      if (key == 'class') {
         return;
       }
-      _this.$el.attr(key, val);
+      if (_.isBoolean(val) && !val) {
+        _this.$el.removeAttr(key);
+      }
+      else {
+        _this.$el.attr(key, val);
+      }
     });
 
     this.$el.addClass(this.data.attributes.get('class') || '');
