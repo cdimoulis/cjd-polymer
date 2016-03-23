@@ -31,7 +31,6 @@ App.View.extend({
   },
 
   _navigateHome: function() {
-    console.log('navigate home');
     window.location.pathname = "/";
   },
 });
