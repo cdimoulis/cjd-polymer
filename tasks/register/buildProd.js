@@ -18,12 +18,11 @@
 module.exports = function(grunt) {
   grunt.registerTask('buildProd', [
     'compileAssets',
-    'linkAssets'
-    // 'concat',
-    // 'uglify',
-    // 'cssmin',
-    // 'linkAssetsBuildProd',
-    // 'clean:build',
-    // 'copy:build'
+    'concat',
+    'uglify',
+    'cssmin',
+    'linkAssetsBuildProd',
+    'clean:build',
+    'copy:build'
   ]);
 };
