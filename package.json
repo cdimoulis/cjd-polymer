@@ -50,7 +50,7 @@
   "engines": {
     "node": "4.3.1"
   },
-  "cacheDirectories": [],
+  "cacheDirectories": ["node_modules"],
   "devDependencies": {
     "sails-generate-bower": "0.0.2"
   }
