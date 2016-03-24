@@ -1,3 +1,6 @@
+$primary: rgb(96,125,139);
+$accent: rgb(255,171,64);
+
 body {
   height: 100%;
 
@@ -21,6 +24,14 @@ body {
       }
       #condensedHeaderBg.paper-scroll-header-panel {
         background: rgb(96,125,139);
+      }
+    }
+  }
+
+  paper-spinner.cjd-spinner {
+    #spinnerContainer {
+      .spinner-layer.paper-spinner {
+        border-color: $accent;
       }
     }
   }

@@ -14,13 +14,12 @@
 module.exports = function(grunt) {
   grunt.registerTask('prod', [
     'compileAssets',
-    'linkAssets'
-    // 'concat',
-    // 'uglify',
-    // 'cssmin',
-    // 'sails-linker:prodDependenciesJsJade',
-    // 'sails-linker:prodJsJade',
-    // 'sails-linker:prodStylesJade',
-    // 'sails-linker:prodTplJade'
+    'concat',
+    'uglify',
+    'cssmin',
+    'sails-linker:prodDependenciesJsJade',
+    'sails-linker:prodJsJade',
+    'sails-linker:prodStylesJade',
+    'sails-linker:prodTplJade'
   ]);
 };
