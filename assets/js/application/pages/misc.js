@@ -2,6 +2,7 @@ App.Page.extend({
   name: "pages/misc",
   init_functions: [
     'setup',
+    'spinner',
   ],
 
   setup: function() {
@@ -37,4 +38,25 @@ App.Page.extend({
     }
 
   },
+
+  spinner: function() {
+    var spinner = new App.Model({active: true});
+    var spin_attr = new App.Model({class: 'cjd-spinner'})
+    window.spinner = spinner;
+    window.spin_attr = spin_attr;
+    c = this.components;
+
+    c.spinner = {
+      model: spinner,
+      attribute: 'active',
+      alt: 'Working on it...',
+    };
+
+    c.other_spinner = {
+      model: spinner,
+      attribute: 'other',
+      attributes: spin_attr,
+      alt: 'Something...',
+    };
+  }
 });

@@ -6,20 +6,41 @@
   </div>
 </div>
 <div class='mdl-grid'>
-  <div class='mdl-cell mdl-cell--12-col'>
-    <h4>
-      Sliders
-    </h4>
+  <div class='mdl-cell mdl-cell--8-col'>
+    <div class='mdl-grid'>
+      <div class='mdl-cell mdl-cell--12-col'>
+        <h4>
+          Sliders
+        </h4>
+      </div>
+    </div>
+    <div class='mdl-grid'>
+      <div class='mdl-cell mdl-cell--4-col'>
+        {{view 'components/general/slider' data=components.slider}}
+      </div>
+      <div class='mdl-cell mdl-cell--4-col'>
+        {{view 'components/general/slider' data=components.pin}}
+      </div>
+      <div class='mdl-cell mdl-cell--4-col'>
+        {{view 'components/general/slider' data=components.markers}}
+      </div>
+    </div>
   </div>
-</div>
-<div class='mdl-grid'>
-  <div class='mdl-cell mdl-cell--3-col'>
-    {{view 'components/general/slider' data=components.slider}}
-  </div>
-  <div class='mdl-cell mdl-cell--3-col'>
-    {{view 'components/general/slider' data=components.pin}}
-  </div>
-  <div class='mdl-cell mdl-cell--3-col'>
-    {{view 'components/general/slider' data=components.markers}}
+  <div class='mdl-cell mdl-cell--4-col'>
+    <div class='mdl-grid'>
+      <div class='mdl-cell mdl-cell--12-col'>
+        <h4>
+          Spinners
+        </h4>
+      </div>
+    </div>
+    <div class='mdl-grid'>
+      <div class='mdl-cell mdl-cell--4-col'>
+        {{view 'components/general/spinner' data=components.spinner}}
+      </div>
+      <div class='mdl-cell mdl-cell--4-col'>
+        {{view 'components/general/spinner' data=components.other_spinner}}
+      </div>
+    </div>
   </div>
 </div>

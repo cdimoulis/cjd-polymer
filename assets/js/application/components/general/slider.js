@@ -33,7 +33,6 @@ App.Component.extend({
       this.data.attributes.set('class', '');
     }
     this.data.attributes.set('class', this.data.attributes.get('class')+' cjd-slider')
-    var attrs = {};
 
     this.el.id = this.data.attributes.get('id') || this.cid+'_slider';
 
