@@ -3,6 +3,7 @@ App.Page.extend({
   init_functions: [
     'setup',
     'spinner',
+    'toast',
   ],
 
   setup: function() {
@@ -57,6 +58,52 @@ App.Page.extend({
       attribute: 'other',
       attributes: spin_attr,
       alt: 'Something...',
+    };
+  },
+
+  toast: function() {
+    c = this.components;
+
+    c.toast = {
+      text: 'toast',
+      event_handler: function() {
+        App.showToast('Hi i am called a toast!');
+      },
+    };
+
+    c.long_toast = {
+      text: 'Long',
+      event_handler: function() {
+        App.showToast('I am a toast that lasts 10 seconds!',10000);
+      },
+    };
+
+    c.success_toast = {
+      text: 'Success',
+      event_handler: function() {
+        App.showSuccess('Colored green to show success!');
+      },
+    };
+
+    c.error_toast = {
+      text: 'Error',
+      event_handler: function() {
+        App.showError('Colored red to show error!');
+      },
+    };
+
+    c.persistent_toast = {
+      text: 'Persistent',
+      event_handler: function() {
+        App.showPersistentToast('I am toast that will not close unless you tell me')
+      }
+    };
+
+    c.full_toast = {
+      text: 'Full',
+      event_handler: function() {
+        App.showPersistentToast('I am toast that will fill the width of the page', true)
+      }
     };
   }
 });

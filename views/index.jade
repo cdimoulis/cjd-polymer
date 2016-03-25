@@ -98,10 +98,14 @@ html
     link(rel="import", href="/vendor/iron-icons/social-icons.html")
     link(rel="import", href="/vendor/iron-flex-layout/iron-flex-layout.html")
     link(rel="import", href="/vendor/iron-flex-layout/iron-flex-layout-classes.html")
+    link(rel="import", href="/vendor/paper-toast/paper-toast.html")
+    link(rel="import", href="/vendor/paper-button/paper-button.html")
     // WEB COMPONENTS END
   body
     #main-content(page-name='#{page}',style='height: 100%')
-    
+    paper-toast#toast
+    paper-toast#persistent_toast
+      paper-button.toast_button(onclick='persistent_toast.close()') Close
     script.
-      App.setPage();
+      App.start()
       
