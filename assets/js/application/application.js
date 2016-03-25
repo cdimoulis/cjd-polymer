@@ -15,9 +15,14 @@ this.Application = function (options) {
   this.Collection = Backbone.Collection.extend();
   this.Model = Backbone.Model.extend();
 
-  this.setPage = function () {
-    // Remove the page if one is currently being shown.
+  this._toast = null;
+  this._persistent_toast = {};
 
+  /******
+  * Set the main layout to the right page
+  *******/
+  this._setPage = function () {
+    // Remove the page if one is currently being shown.
     var $content = $('#main-content');
     var page_name = 'pages/'+$content.attr('page-name')
     // Add page if exists
@@ -25,15 +30,100 @@ this.Application = function (options) {
       var layout = new this.Views['layouts/main']({hash: {data: {page: page_name}}});
       layout.render();
       layout.appendTo($content);
-      // var page = new this.Pages['pages/'+page_name]();
-      // page.render();
-      // page.appendTo($content);
     }
     else {
       throw "No page content "+page_name+" exists."
     }
   };
 
+  /*******
+  * App wide toast controls
+  ********/
+  this._initToast = function() {
+    this._toast = $('paper-toast#toast')[0];
+    this._persistent_toast = $('paper-toast#persistent_toast')[0];
+
+    this._toast.addEventListener('iron-overlay-closed',this._closeToast);
+    this._persistent_toast.addEventListener('iron-overlay-closed',this._closeToast);
+  }
+
+  this.showToast = function (text, duration=3000, full=false, attributes) {
+    this._showToast(this._toast, text, duration, full, attributes);
+  };
+
+  this.showSuccess = function (text, full=false, attributes={}) {
+    if (_.has(attributes, 'class')) {
+      if (_.isString(attributes.class)) {
+        attributes.class += ' success';
+      }
+      else {
+        attributes.class = 'success';
+      }
+    }
+    else {
+      attributes.class = 'success';
+    }
+
+    this._showToast(this._toast, text, 3000, full, attributes);
+  };
+
+  this.showError = function (text, full=false, attributes={}) {
+    if (_.has(attributes, 'class')) {
+      if (_.isString(attributes.class)) {
+        attributes.class += ' error';
+      }
+      else {
+        attributes.class = 'error';
+      }
+    }
+    else {
+      attributes.class = 'error';
+    }
+
+    this._showToast(this._toast, text, 3000, full, attributes);
+  }
+
+  this.showPersistentToast = function (text, full=false, attributes) {
+    this._showToast(this._persistent_toast, text, 0, full, attributes);
+  };
+
+  this.showPersistentToast = function (text, full=false, attributes) {
+    this._showToast(this._persistent_toast, text, 0, full, attributes);
+  };
+
+  this._showToast = function (toast, text, duration=3000, full=false, attributes) {
+    var _this = this;
+    if (!!attributes) {
+      _.each(attributes, function(attr, key) {
+        if (key == 'class') {
+          $(toast).addClass(attr);
+        }
+        else {
+          toast.setAttribute(key, attr);
+        }
+      });
+    }
+
+    if (full) {
+      $(toast).addClass('fit-bottom');
+    }
+
+    toast.show({
+      text: text,
+      duration: duration,
+    });
+  };
+
+  this._closeToast = function(e) {
+    toast = e.currentTarget;
+    $(toast).removeClass('success');
+    $(toast).removeClass('error');
+    $(toast).removeClass('fit-bottom');
+  }
+
+  /******
+  * Import polymer component DEPENDENCIES
+  *******/
   this.importDependency = function(dependency) {
     if (!_.contains(this._dependencies, dependency)) {
       Polymer.Base.importHref('/vendor/'+dependency);
@@ -79,9 +169,12 @@ this.Application = function (options) {
   });
 
   _.extend(this, options);
-  this.initialize.call(this);
-  this.ready.call(this);
-  this.main.call(this);
+
+  this.start = function() {
+    this.initialize()
+    this.ready()
+    this.main()
+  }
 
   return this;
 };

@@ -28,6 +28,19 @@ body {
     }
   }
 
+  paper-toast {
+    paper-button.toast_button {
+      color: $accent;
+      text-transform: none;
+    }
+    &.success {
+      background-color: rgb(76, 175, 80);
+    }
+    &.error {
+      background-color: rgb(244, 67, 54);
+    }
+  }
+
   paper-spinner.cjd-spinner {
     #spinnerContainer {
       .spinner-layer.paper-spinner {
