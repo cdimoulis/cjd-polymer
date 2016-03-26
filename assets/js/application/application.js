@@ -45,13 +45,14 @@ this.Application = function (options) {
 
     this._toast.addEventListener('iron-overlay-closed',this._closeToast);
     this._persistent_toast.addEventListener('iron-overlay-closed',this._closeToast);
-  }
+  };
 
-  this.showToast = function (text, duration=3000, full=false, attributes) {
+  this.showToast = function (text, duration, full, attributes) {
     this._showToast(this._toast, text, duration, full, attributes);
   };
 
-  this.showSuccess = function (text, full=false, attributes={}) {
+  this.showSuccess = function (text, full, attributes) {
+    attributes = attributes || {};
     if (_.has(attributes, 'class')) {
       if (_.isString(attributes.class)) {
         attributes.class += ' success';
@@ -67,7 +68,8 @@ this.Application = function (options) {
     this._showToast(this._toast, text, 3000, full, attributes);
   };
 
-  this.showError = function (text, full=false, attributes={}) {
+  this.showError = function (text, full, attributes) {
+    attributes = attribuets || {};
     if (_.has(attributes, 'class')) {
       if (_.isString(attributes.class)) {
         attributes.class += ' error';
@@ -81,17 +83,18 @@ this.Application = function (options) {
     }
 
     this._showToast(this._toast, text, 3000, full, attributes);
-  }
+  };
 
-  this.showPersistentToast = function (text, full=false, attributes) {
+  this.showPersistentToast = function (text, full, attributes) {
     this._showToast(this._persistent_toast, text, 0, full, attributes);
   };
 
-  this.showPersistentToast = function (text, full=false, attributes) {
+  this.showPersistentToast = function (text, full, attributes) {
     this._showToast(this._persistent_toast, text, 0, full, attributes);
   };
 
-  this._showToast = function (toast, text, duration=3000, full=false, attributes) {
+  this._showToast = function (toast, text, duration, full, attributes) {
+    duration = duration || 3000;
     var _this = this;
     if (!!attributes) {
       _.each(attributes, function(attr, key) {
@@ -119,7 +122,7 @@ this.Application = function (options) {
     $(toast).removeClass('success');
     $(toast).removeClass('error');
     $(toast).removeClass('fit-bottom');
-  }
+  };
 
   /******
   * Import polymer component DEPENDENCIES
@@ -171,10 +174,10 @@ this.Application = function (options) {
   _.extend(this, options);
 
   this.start = function() {
-    this.initialize()
-    this.ready()
-    this.main()
-  }
+    this.initialize();
+    this.ready();
+    this.main();
+  };
 
   return this;
 };
