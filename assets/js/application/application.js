@@ -69,7 +69,7 @@ this.Application = function (options) {
   };
 
   this.showError = function (text, full, attributes) {
-    attributes = attribuets || {};
+    attributes = attributes || {};
     if (_.has(attributes, 'class')) {
       if (_.isString(attributes.class)) {
         attributes.class += ' error';
@@ -94,7 +94,9 @@ this.Application = function (options) {
   };
 
   this._showToast = function (toast, text, duration, full, attributes) {
-    duration = duration || 3000;
+    if (_.isNull(duration) || _.isUndefined(duration)) {
+      duration = 3000;
+    }
     var _this = this;
     if (!!attributes) {
       _.each(attributes, function(attr, key) {
