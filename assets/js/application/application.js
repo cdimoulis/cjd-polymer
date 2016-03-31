@@ -142,7 +142,7 @@ this.Application = function (options) {
   * store all the created classes (i.e. models, collections, views)
   ******/
   var _registerClass = function (cls, hash) {
-    cls_extend = cls.extend
+    cls_extend = cls.extend;
     cls.extend = function () {
       child = cls_extend.apply(this,arguments);
       if (child.prototype.name){
